@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: APIS2025BACK
+
+  data:
+    mongodb:
+      uri: ${DB_URI}
+
+  security:
+    user:
+      name: ${SC_USERNAME}
+      password: ${SC_PASSWORD}
