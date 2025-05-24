@@ -107,7 +107,7 @@ DB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/...;SC_USERNAME=<
 1. Abre una terminal (PowerShell) y ejecuta:
 
 ```bash
-$env:DB_URI= "mongodb+srv://username:password@cluster.mongodb.net/..."
+$env:DB_URI="mongodb+srv://username:password@cluster.mongodb.net/..."
 $env:SC_USERNAME="username"
 $env:SC_PASSWORD="password"
 ```
