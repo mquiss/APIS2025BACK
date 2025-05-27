@@ -6,8 +6,6 @@ Primer Cuatrimestre 2025).
 La aplicación simula un sistema de e-commerce que permite a los usuarios registrarse, iniciar sesión, navegar por un
 catálogo de productos, gestionar un carrito de compras y publicar productos.
 
----
-
 ## Índice
 
 [1. Requisitos](#1-requisitos)  
@@ -36,14 +34,10 @@ catálogo de productos, gestionar un carrito de compras y publicar productos.
 [5. Acceso al proyecto](#5-acceso-al-proyecto)  
 [6. Integrantes del grupo](#6-integrantes-del-grupo)
 
----
-
 ## 1. Requisitos
 
 - [Java Development Kit 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 - [MongoDB Database Credentials](https://www.mongodb.com/es/atlas)
-
----
 
 ## 2. Instrucciones para levantar el proyecto
 
@@ -144,8 +138,6 @@ de empezar a trabajar en el proyecto.
 
 > Esto levantará el backend en: [http://localhost:8080](http://localhost:8080)
 
----
-
 ## 3. Funcionalidades del proyecto
 
 ### 3.1 TODO List
@@ -169,8 +161,6 @@ git checkout feature\products
 ### 3.3 Estructura de carpetas
 
 ![img_10.png](docs/screenshots/img_10.png)
-
----
 
 ## 4. Estructura de la Base de Datos
 
@@ -211,9 +201,8 @@ Registros: [carts.json](/docs/data/carts.json)
 #### 4.2.5 Collection ``orders``
 
 Registros: [orders.json](/docs/data/orders.json)
-![img.png](docs/screenshots/orders-tree-diagram.png)
 
----
+![img.png](docs/screenshots/orders-tree-diagram.png)
 
 ## 5. Acceso al proyecto
 
