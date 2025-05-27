@@ -1,0 +1,57 @@
+[
+  {
+    "_id": {
+      "$oid": "6830d89814aa9a83932da8f1"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da76e"
+    },
+    "products": [
+      {
+        "productId": {
+          "$oid": "6830d5c214aa9a83932da864"
+        },
+        "quantity": 2,
+        "unit_price": 19.99
+      },
+      {
+        "productId": {
+          "$oid": "6830d5c214aa9a83932da865"
+        },
+        "quantity": 1,
+        "unit_price": 49.99
+      }
+    ],
+    "subtotal": 89.97,
+    "createdAt": {
+      "$date": "2025-02-20T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-02-20T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d89814aa9a83932da8f2"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da76f"
+    },
+    "products": [
+      {
+        "productId": {
+          "$oid": "6830d5c214aa9a83932da867"
+        },
+        "quantity": 1,
+        "unit_price": 129.99
+      }
+    ],
+    "subtotal": 129.99,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  }
+]

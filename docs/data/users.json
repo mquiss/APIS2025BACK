@@ -1,0 +1,68 @@
+[
+  {
+    "_id": {
+      "$oid": "6830d1f514aa9a83932da76e"
+    },
+    "username": "jgarcia",
+    "email": "jgarcia@example.com",
+    "password": "123456",
+    "firstName": "Juan",
+    "lastName": "García",
+    "address": {
+      "street": "Calle Ficticia 123",
+      "state": "Buenos Aires",
+      "country": "Argentina"
+    },
+    "avatar": "https://randomuser.me/api/portraits/med/men/1.jpg",
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d1f514aa9a83932da76f"
+    },
+    "username": "mmartinez",
+    "email": "mmartinez@example.com",
+    "password": "123456",
+    "firstName": "María",
+    "lastName": "Martínez",
+    "address": {
+      "street": "Avenida Libertador 456",
+      "state": "Buenos Aires",
+      "country": "Argentina"
+    },
+    "avatar": "https://randomuser.me/api/portraits/med/men/2.jpg",
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d1f514aa9a83932da770"
+    },
+    "username": "lmendez",
+    "email": "lmendez@example.com",
+    "password": "123456",
+    "firstName": "Luis",
+    "lastName": "Méndez",
+    "address": {
+      "street": "Calle Las Heras 789",
+      "state": "Córdoba",
+      "country": "Argentina"
+    },
+    "avatar": "https://randomuser.me/api/portraits/med/men/3.jpg",
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  }
+]

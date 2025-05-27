@@ -1,0 +1,340 @@
+[
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da85e"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da76f"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7ac"
+    },
+    "subcategoryIds": [
+      "2-3",
+      "2-1",
+      "2-2"
+    ],
+    "title": "Laptop HP Pavilion",
+    "images": [
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_754921-MLA82991873214_032025-O.webp",
+        "isCover": true
+      },
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_638683-MLA82991873242_032025-O.webp",
+        "isCover": false
+      },
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_641760-MLA83281566713_032025-O.webp",
+        "isCover": false
+      }
+    ],
+    "description": "Laptop de 15 pulgadas con procesador Intel Core i5 y 8GB de RAM",
+    "price": 899.99,
+    "stock": 48,
+    "discountPercentage": 10,
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da85f"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da770"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7ac"
+    },
+    "subcategoryIds": [
+      "2-1",
+      "2-2"
+    ],
+    "title": "Smartphone Samsung Galaxy S21",
+    "images": [
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_802098-MLA53734551392_022023-O.webp",
+        "isCover": true
+      }
+    ],
+    "description": "Teléfono inteligente con pantalla AMOLED de 6.2 pulgadas y 128GB de almacenamiento",
+    "price": 799.99,
+    "stock": 25,
+    "discountPercentage": 15,
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da860"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da770"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7af"
+    },
+    "subcategoryIds": [
+      "5-2",
+      "5-1"
+    ],
+    "title": "Crema facial anti-envejecimiento",
+    "images": [
+      {
+        "url": "https://pedidosfarma.vtexassets.com/arquivos/ids/204979-800-800?v=638741974162130000&width=800&height=800&aspect=true",
+        "isCover": true
+      }
+    ],
+    "description": "Crema hidratante con efectos anti-envejecimiento",
+    "price": 39.99,
+    "stock": 9,
+    "discountPercentage": 5,
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da861"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da76e"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7ab"
+    },
+    "subcategoryIds": [
+      "1-1"
+    ],
+    "title": "Camisa de Algodón",
+    "images": [
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_737360-MLA54975059738_042023-O.webp",
+        "isCover": true
+      }
+    ],
+    "description": "Camisa casual de manga larga, 100% algodón",
+    "price": 29.99,
+    "stock": 3,
+    "discountPercentage": 0,
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da862"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da770"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7b0"
+    },
+    "subcategoryIds": [
+      "6-3",
+      "6-2",
+      "6-1"
+    ],
+    "title": "Pelota de fútbol profesional",
+    "images": [
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_714966-MLU77288566678_072024-O.webp",
+        "isCover": true
+      }
+    ],
+    "description": "Pelota de fútbol profesional de alta calidad",
+    "price": 19.99,
+    "stock": 10,
+    "discountPercentage": 20,
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da863"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da76e"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7ab"
+    },
+    "subcategoryIds": [
+      "1-2"
+    ],
+    "title": "Zapatos Deportivos Nike Air Max",
+    "images": [
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_858787-MLA75757534429_042024-O.webp",
+        "isCover": true
+      }
+    ],
+    "description": "Zapatillas para correr con amortiguación Air Max",
+    "price": 129.99,
+    "stock": 0,
+    "discountPercentage": 10,
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da864"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da76f"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7ae"
+    },
+    "subcategoryIds": [
+      "4-1",
+      "4-3"
+    ],
+    "title": "Libro 'El Principito'",
+    "images": [
+      {
+        "url": "https://libreriareginacoeli.com/wp-content/uploads/2022/12/El-principito-tapa-dura-scaled.jpg",
+        "isCover": true
+      }
+    ],
+    "description": "Edición especial en tapa dura del clásico de Antoine de Saint-Exupéry",
+    "price": 19.99,
+    "stock": 44,
+    "discountPercentage": 0,
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da865"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da770"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7ad"
+    },
+    "subcategoryIds": [
+      "3-2",
+      "3-1"
+    ],
+    "title": "Lámpara de mesa moderna",
+    "images": [
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_959048-MLA81072226275_112024-O.webp",
+        "isCover": true
+      }
+    ],
+    "description": "Lámpara de mesa con diseño moderno, ideal para oficina",
+    "price": 49.99,
+    "stock": 0,
+    "discountPercentage": 0,
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da866"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da770"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7ad"
+    },
+    "subcategoryIds": [
+      "3-3",
+      "3-2"
+    ],
+    "title": "Sofá de 3 plazas",
+    "images": [
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_630099-MLA83381499164_042025-O.webp",
+        "isCover": true
+      }
+    ],
+    "description": "Sofá cómodo de 3 plazas, diseño minimalista",
+    "price": 299.99,
+    "stock": 0,
+    "discountPercentage": 0,
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6830d5c214aa9a83932da867"
+    },
+    "userId": {
+      "$oid": "6830d1f514aa9a83932da76e"
+    },
+    "categoryId": {
+      "$oid": "6830d2e714aa9a83932da7ac"
+    },
+    "subcategoryIds": [
+      "2-2",
+      "2-1"
+    ],
+    "title": "Auriculares Bluetooth Sony",
+    "images": [
+      {
+        "url": "https://http2.mlstatic.com/D_NQ_NP_972200-MLU74088420395_012024-O.webp",
+        "isCover": true
+      }
+    ],
+    "description": "Auriculares inalámbricos con cancelación de ruido",
+    "price": 129.99,
+    "stock": 25,
+    "discountPercentage": 8,
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    },
+    "updatedAt": {
+      "$date": "2025-04-23T21:20:16.72Z"
+    }
+  }
+]

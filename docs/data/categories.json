@@ -1,0 +1,118 @@
+[
+  {
+    "_id": {
+      "$oid": "6830d2e714aa9a83932da7ab"
+    },
+    "name": "Moda",
+    "subcategories": [
+      {
+        "id": "1-1",
+        "name": "Ropa"
+      },
+      {
+        "id": "1-2",
+        "name": "Calzado"
+      },
+      {
+        "id": "1-3",
+        "name": "Accesorios"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6830d2e714aa9a83932da7ac"
+    },
+    "name": "Tecnología",
+    "subcategories": [
+      {
+        "id": "2-1",
+        "name": "Electrónicos"
+      },
+      {
+        "id": "2-2",
+        "name": "Gadgets"
+      },
+      {
+        "id": "2-3",
+        "name": "Computadoras"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6830d2e714aa9a83932da7ad"
+    },
+    "name": "Hogar y Cocina",
+    "subcategories": [
+      {
+        "id": "3-1",
+        "name": "Cocina"
+      },
+      {
+        "id": "3-2",
+        "name": "Decoración"
+      },
+      {
+        "id": "3-3",
+        "name": "Muebles"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6830d2e714aa9a83932da7ae"
+    },
+    "name": "Libros y Papelería",
+    "subcategories": [
+      {
+        "id": "4-1",
+        "name": "Libros"
+      },
+      {
+        "id": "4-2",
+        "name": "Cuadernos"
+      },
+      {
+        "id": "4-3",
+        "name": "Material escolar"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6830d2e714aa9a83932da7af"
+    },
+    "name": "Salud y Belleza",
+    "subcategories": [
+      {
+        "id": "5-1",
+        "name": "Belleza"
+      },
+      {
+        "id": "5-2",
+        "name": "Cuidado personal"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6830d2e714aa9a83932da7b0"
+    },
+    "name": "Deportes",
+    "subcategories": [
+      {
+        "id": "6-1",
+        "name": "Ropa deportiva"
+      },
+      {
+        "id": "6-2",
+        "name": "Accesorios deportivos"
+      },
+      {
+        "id": "6-3",
+        "name": "Equipamiento"
+      }
+    ]
+  }
+]
