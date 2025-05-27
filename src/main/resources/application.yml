@@ -4,7 +4,7 @@ spring:
 
   data:
     mongodb:
-      uri: ${DB_URI}
+      uri: 'mongodb+srv://dev:GiM9c11oSScFQMAp@apis-tpo-cluster.ca1h1z1.mongodb.net/ecommerce'
 
   security:
     user:
