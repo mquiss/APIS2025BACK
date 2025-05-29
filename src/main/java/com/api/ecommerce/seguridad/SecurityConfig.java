@@ -24,7 +24,7 @@ public class SecurityConfig {
             // rutas sin autenticación
             .requestMatchers(
                     "/users/login", 
-                    "/users/", 
+                    //"/users/", 
                     "/public/**", 
                     "/h2-console/**" // ejemplo
                 ).permitAll()
