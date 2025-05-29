@@ -12,9 +12,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<User> findByUsernameAndPassword(String username, String password) {
-    return userRepository.findByUsernameAndPassword(username, password);
+   public Optional<User> findByUsernameAndPassword(String username, String password) {
+    
+    List<User> usuarios = userRepository.findByUsernameAndPassword(username, password);
+    System.out.println("Coincidencias encontradas: " + usuarios.size());
+    usuarios.forEach(u -> System.out.println(u.getId()));
+    if (!usuarios.isEmpty()) {
+        return Optional.of(usuarios.get(0));
     }
+    return Optional.empty();
+}
 
     public List<User> getAllUsers() {
         return userRepository.findAll();

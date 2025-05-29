@@ -30,12 +30,25 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
-        } catch (JwtException e) {
-            return false;
-        }
+public boolean validateToken(String token, String username) {
+    try {
+        // Parsear el token y obtener las claims
+        var claims = Jwts.parserBuilder()
+                         .setSigningKey(key)
+                         .build()
+                         .parseClaimsJws(token)
+                         .getBody();
+
+        String tokenUsername = claims.getSubject(); // subject = username
+        return (tokenUsername.equals(username) && !isTokenExpired(claims));
+
+    } catch (JwtException e) {
+        return false;
     }
+}
+
+// Método auxiliar para verificar expiración
+private boolean isTokenExpired(Claims claims) {
+    return claims.getExpiration().before(new Date());
+}
 }

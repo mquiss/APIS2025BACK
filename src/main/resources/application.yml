@@ -4,9 +4,9 @@ spring:
 
   data:
     mongodb:
-      uri: 'mongodb+srv://dev:GiM9c11oSScFQMAp@apis-tpo-cluster.ca1h1z1.mongodb.net/ecommerce'
+      uri: 'mongodb+srv://dev:CU5JaXKB5ScZ2ogQ@apis-tpo-cluster.ca1h1z1.mongodb.net/ecommerce'
 
   security:
     user:
-      name: ${SC_USERNAME}
-      password: ${SC_PASSWORD}
+      name: 'user'
+      password: 'password'

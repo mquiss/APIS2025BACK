@@ -28,7 +28,7 @@ public class UserController {
         try {
             if (request.getUsername() == null || request.getPassword() == null) {
                 return ResponseEntity.badRequest().body("Credenciales incompletas");
-            }
+            }     
 
             Optional<User> userOpt = userService.findByUsernameAndPassword(request.getUsername(), request.getPassword());
 
@@ -37,6 +37,8 @@ public class UserController {
                 Map<String, Object> response = new HashMap<>();
                 response.put("token", token);
                 response.put("user", userOpt.get());
+                System.out.println("Usuario autenticado: " + request.getUsername());
+                System.out.println("Token generado: " + token);
                 return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.status(401).body("Credenciales inválidas");
