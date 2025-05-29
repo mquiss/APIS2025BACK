@@ -16,5 +16,5 @@ public class ProductDTO {
     private double price;
     private int stock;
     private int discountPercentage;
-    private boolean isFeatured;
+    private boolean featured;
 }
