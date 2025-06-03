@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
-
+    
     @Autowired
     private ProductRepository productRepository;
 
@@ -28,9 +28,13 @@ public class ProductService {
     }
 
     public List<ProductDTO> getProductsByCategory(String categoryId) {
-        return productRepository.findByCategoriesCategoryId(categoryId)
-            .stream()
-            .map(ProductMapper.INSTANCE::toProductDTO)
-            .collect(Collectors.toList());
+        try {
+            List<Product> products = productRepository.findByCategoriesCategoryId(categoryId);
+            return products.stream()
+                .map(ProductMapper.INSTANCE::toProductDTO)
+                .collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching products by category", e);
+        }
     }
 }

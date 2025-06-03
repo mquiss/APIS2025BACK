@@ -17,13 +17,13 @@ public class Product {
     private String id;
     private String userId;
     
+    private List<CategoryReference> categories;
+
     @Data
     public static class CategoryReference {
         private String categoryId;
         private List<String> subcategoryIds;
     }
-    
-    private List<CategoryReference> categories;
     
     private String title;
     private List<Image> images;
