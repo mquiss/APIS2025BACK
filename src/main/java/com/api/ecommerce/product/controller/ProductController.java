@@ -28,4 +28,10 @@ public class ProductController {
         ProductDTO product = productService.getProductById(id);
         return product == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(product);
     }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable String categoryId) {
+        List<ProductDTO> products = productService.getProductsByCategory(categoryId);
+        return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
+    }
 }

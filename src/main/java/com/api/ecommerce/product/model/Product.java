@@ -13,24 +13,31 @@ import java.util.List;
 @Data
 @Document(collection = "products")
 public class Product {
-
     @Id
     private String id;
-
     private String userId;
-    private String categoryId;
-
-    private List<String> subcategoryIds;
+    
+    @Data
+    public static class CategoryReference {
+        private String categoryId;
+        private List<String> subcategoryIds;
+    }
+    
+    private List<CategoryReference> categories;
+    
     private String title;
     private List<Image> images;
     private String description;
     private double price;
     private int stock;
     private int discountPercentage;
+    
     @Field("isFeatured")
     private boolean featured;
+    
     @CreatedDate
     private LocalDateTime createdAt;
+    
     @LastModifiedDate
     private LocalDateTime updatedAt;
 }

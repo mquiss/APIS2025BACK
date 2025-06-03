@@ -26,4 +26,11 @@ public class ProductService {
         Product product = productRepository.findById(id).orElse(null);
         return product == null ? null : ProductMapper.INSTANCE.toProductDTO(product);
     }
+
+    public List<ProductDTO> getProductsByCategory(String categoryId) {
+        return productRepository.findByCategoriesCategoryId(categoryId)
+            .stream()
+            .map(ProductMapper.INSTANCE::toProductDTO)
+            .collect(Collectors.toList());
+    }
 }
