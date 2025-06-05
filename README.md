@@ -109,7 +109,7 @@ DB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/...;SC_USERNAME=<
 ```bash
 $env:DB_URI="mongodb+srv://username:password@cluster.mongodb.net/..."
 $env:SC_USERNAME="username"
-$env:SC_PASSWORD="password"
+$env:SC_PASSWORD="6BPJLXM0Me7miIxZ"
 ```
 > Esto solo funcionará mientras la terminal se encuentre abierta. Al no ser permanente, se debe repetir el proceso antes de empezar a trabajar en el proyecto.
 

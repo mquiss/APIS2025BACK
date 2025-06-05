@@ -3,6 +3,7 @@ package com.api.ecommerce.users.controller;
 import com.api.ecommerce.users.service.UserService;
 import com.api.ecommerce.exepciones.ErrorCreacionException;
 import com.api.ecommerce.exepciones.RecursoNoEncontradoException;
+import com.api.ecommerce.users.dto.UserDTO;
 import com.api.ecommerce.users.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -34,20 +36,44 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable String id) {
-        return userService.getUserById(id)
-            .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado con id: " + id));
+    public ResponseEntity<?> getUserById(@PathVariable String id) {
+        try{
+            Optional<UserDTO> user = userService.getUserById(id);
+            if (user.isPresent()) {
+                
+                return ResponseEntity.ok(user.get());
+            }
+                else {
+            return ResponseEntity.status(404).body("Usuario no encontrado");
+        }
+        }catch(Exception e){
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
+    }
+    @PostMapping("/nuevo")
+    public ResponseEntity<?> createUser(@RequestBody UserDTO user) {
+        try {
+            return userService.createUser(user) != null 
+                ? ResponseEntity.status(201).body(user) 
+                : ResponseEntity.status(400).body("Error al crear el usuario");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error interno: " + e.getMessage());
+        }
+
     }
 
-public User createUser(User user) {
-    
-        return userService.createUser(user) .orElseThrow(() -> new ErrorCreacionException("Error al crear el usuario"));
-    
-}
-
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable String id, @RequestBody User userDetails) {
-        return userService.updateUser(id, userDetails);
+    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody User userDetails) {
+       try{
+
+           return userService.updateUser(id, userDetails)!=null
+               ? ResponseEntity.ok(userDetails)
+               : ResponseEntity.status(404).body("Usuario no encontrado");
+
+       }catch (Exception e) {
+           return ResponseEntity.status(500).body("Error: " + e.getMessage());
+       }
+       
     }
 
     @DeleteMapping("/{id}")
