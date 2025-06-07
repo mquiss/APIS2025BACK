@@ -1,7 +1,6 @@
 # Sistema de E-Commerce - Backend Java Spring
 
-Este repositorio corresponde al **backend** del Trabajo Práctico Obligatorio de la materia _Aplicaciones Interactivas_ (
-Primer Cuatrimestre 2025).
+Este repositorio corresponde al **backend** del Trabajo Práctico Obligatorio de la materia _Aplicaciones Interactivas_ (Primer Cuatrimestre 2025).
 
 La aplicación simula un sistema de e-commerce que permite a los usuarios registrarse, iniciar sesión, navegar por un
 catálogo de productos, gestionar un carrito de compras y publicar productos.
