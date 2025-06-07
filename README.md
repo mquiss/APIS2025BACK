@@ -32,7 +32,6 @@ catálogo de productos, gestionar un carrito de compras y publicar productos.
     [4.2.4 Collection carts](#424-collection-carts)  
     [4.2.5 Collection orders](#425-collection-orders)  
 [5. Acceso al proyecto](#5-acceso-al-proyecto)  
-[6. Integrantes del grupo](#6-integrantes-del-grupo)
 
 ## 1. Requisitos
 
@@ -59,8 +58,6 @@ git clone https://github.com/mquiss/APIS2025BACK
     - ***Extension Pack for Java***
     - ***Spring Boot Extension Pack***
 3. Ve a File > Open y selecciona la carpeta APIS2025BACK.
-
----
 
 ### 2.2 Asignar variables de entorno
 
@@ -120,8 +117,6 @@ de empezar a trabajar en el proyecto.
 
 > ⚠️ ***Evita hardcodear valores sensibles en `application.yml`, ya que el archivo se encuentra en el repositorio remoto.***
 
----
-
 ### 2.3 Iniciar servidor
 
 #### Opción A: IntelliJ IDEA
@@ -178,31 +173,21 @@ Este proyecto utiliza una base de datos no relacional, específicamente MongoDB.
 
 Registros: [products.json](/docs/data/products.json)
 
-![img_7.png](docs/screenshots/products-tree-diagram.png)
-
 #### 4.2.2 Collection ``categories``
 
 Registros: [categories.json](/docs/data/categories.json)
-
-![img_5.png](docs/screenshots/categories-tree-diagram.png)
 
 #### 4.2.3 Collection ``users``
 
 Registros: [users.json](/docs/data/users.json)
 
-![img_1.png](docs/screenshots/users-tree-diagram.png)
-
 #### 4.2.4 Collection ``carts``
 
 Registros: [carts.json](/docs/data/carts.json)
 
-![img_6.png](docs/screenshots/carts-tree-diagram.png)
-
 #### 4.2.5 Collection ``orders``
 
 Registros: [orders.json](/docs/data/orders.json)
-
-![img.png](docs/screenshots/orders-tree-diagram.png)
 
 ## 5. Acceso al proyecto
 
@@ -210,13 +195,3 @@ Registros: [orders.json](/docs/data/orders.json)
 
 > Ingresar los valores de las variables de entorno **SC_USERNAME** y **SC_PASSWORD** en el formulario para poder acceder
 > a todas las rutas del proyecto.
-
-## 6. Integrantes del grupo
-
-| Nombre y Apellido         | Legajo  |
-|---------------------------|---------|
-| Jonathan Mayán            | 1159922 |
-| Maria Quispe              | 1179220 |
-| Gianfranco Matias Attadia | 1127384 |
-| Sebastian Porini          |         |
-| Bruno Roude               | 1183894 |
