@@ -5,6 +5,7 @@ spring:
   data:
     mongodb:
       uri: ${DB_URI}
+      auto-index-creation: true
 
   security:
     user:
