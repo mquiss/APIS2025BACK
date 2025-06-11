@@ -1,16 +1,22 @@
 package com.api.ecommerce.product.dto;
 
 import com.api.ecommerce.product.model.Image;
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.List;
 
-public class ProductRequest {
-    private String userId;
-    private String categoryId;
-    private List<String> subcategoryIds;
+@Data
+@Builder
+public class ProductResponse {
+    private String username;
+    private String category;
+    private List<String> subcategories;
     private String title;
     private List<Image> images;
     private String description;
-    private int price;
+    private double price;
     private int stock;
     private int discountPercentage;
+    private boolean isFeatured;
 }

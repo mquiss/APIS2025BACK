@@ -1,10 +1,14 @@
 package com.api.ecommerce.product.service;
 
+import com.api.ecommerce.category.model.Subcategory;
+import com.api.ecommerce.category.service.CategoryService;
 import com.api.ecommerce.product.dto.ProductDTO;
 import com.api.ecommerce.product.dto.ProductRequest;
+import com.api.ecommerce.product.dto.ProductResponse;
 import com.api.ecommerce.product.mapper.ProductMapper;
 import com.api.ecommerce.product.model.Product;
 import com.api.ecommerce.product.repository.ProductRepository;
+import com.api.ecommerce.user.service.UserService;
 import org.bson.internal.BsonUtil;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,49 +20,85 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
+    private final ProductRepository productRepository;
+    private final UserService userService;
+    private final CategoryService categoryService;
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    public List<ProductDTO> getAllProducts() {
-        return productRepository.findAll().stream().map(ProductMapper.INSTANCE::toProductDTO).collect(Collectors.toList());
+    public ProductService(ProductRepository productRepository, UserService userService, CategoryService categoryService) {
+        this.productRepository = productRepository;
+        this.userService = userService;
+        this.categoryService = categoryService;
     }
 
-    public ProductDTO getProductById(String id) {
-        ObjectId objectId = new ObjectId(id);
-        return productRepository.findById(objectId)
-                .map(ProductMapper.INSTANCE::toProductDTO)
-                .orElse(null);
-
-    }
-
-    public List<ProductDTO> getProductsByCategory(String categoryId) {
-        ObjectId catId = new ObjectId(categoryId);
-        List<Product> products = productRepository.findByCategoryId(catId);
-        return products.stream()
-                .map(ProductMapper.INSTANCE::toProductDTO)
+    public List<ProductResponse> getAllProducts() {
+        return productRepository.findAll()
+                .stream()
+                .map(this::buildProductResponse)
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO createProduct(ProductRequest productRequest) {
+    public ProductResponse getProductById(String id) {
+        return productRepository.findById(new ObjectId(id))
+                .map(this::buildProductResponse)
+                .orElse(null);
+    }
+
+    public List<ProductResponse> getProductsByCategory(String categoryId) {
+        return productRepository.findByCategoryId(new ObjectId(categoryId))
+                .stream()
+                .map(this::buildProductResponse)
+                .collect(Collectors.toList());
+    }
+
+    public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = ProductMapper.INSTANCE.toProduct(productRequest);
         productRepository.save(product);
-        return ProductMapper.INSTANCE.toProductDTO(product);
+        return buildProductResponse(product);
     }
 
-    public ProductDTO updateProduct(String id, ProductRequest productRequest) {
+    public ProductResponse updateProduct(String id, ProductRequest productRequest) {
         Product product = productRepository.findById(new ObjectId(id)).orElse(null);
-        // logica update y obtener nuevo producto era save?
-        return product == null ? null : ProductMapper.INSTANCE.toProductDTO(product);
+        // logica para pasar los valores de productrequest a product
+        Product newProduct = ProductMapper.INSTANCE.toProduct(productRequest);
+        newProduct.setId(product.getId());
+        newProduct.setFeatured(product.isFeatured());
+        productRepository.save(newProduct);
+        return buildProductResponse(newProduct);
     }
 
-    public ProductDTO deleteProduct(String id) {
+    public ProductResponse deleteProduct(String id) {
         Product product = productRepository.findById(new ObjectId(id)).orElse(null);
         productRepository.delete(product);
-        return ProductMapper.INSTANCE.toProductDTO(product);
+        return buildProductResponse(product);
     }
 
-    public List<ProductDTO> getProductsByUserId(String userId) {
-        return productRepository.findByUserId(new ObjectId(userId)).stream().map(ProductMapper.INSTANCE::toProductDTO).collect(Collectors.toList());
+    public List<ProductResponse> getProductsByUserId(String userId) {
+        return productRepository.findByUserId(new ObjectId(userId))
+                .stream()
+                .map(this::buildProductResponse)
+                .collect(Collectors.toList());
+    }
+
+    public ProductResponse buildProductResponse(Product product) {
+        String username = userService.findUserById(product.getUserId()).getUsername();
+        String categoryName = categoryService.findCategoryById(product.getCategoryId()).getName();
+        List<String> subcategoryNames = categoryService.findCategoryById(product.getCategoryId())
+                .getSubcategories()
+                .stream()
+                .map(Subcategory::getName)
+                .collect(Collectors.toList());
+
+        return ProductResponse.builder()
+                .username(username)
+                .category(categoryName)
+                .subcategories(subcategoryNames)
+                .title(product.getTitle())
+                .images(product.getImages())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .stock(product.getStock())
+                .discountPercentage(product.getDiscountPercentage())
+                .isFeatured(product.isFeatured())
+                .build();
     }
 }

@@ -141,4 +141,8 @@ public Optional<User> createUser(UserDTO user) {
         }
         userRepository.deleteById(new ObjectId(id));
     }
+
+    public User findUserById(ObjectId id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

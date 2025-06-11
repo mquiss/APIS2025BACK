@@ -25,7 +25,7 @@ public class Product {
     private double price;
     private int stock;
     private int discountPercentage;
-    private boolean isFeatured;
+    private boolean isFeatured = false;
 
     @CreatedDate
     private Instant createdAt;
