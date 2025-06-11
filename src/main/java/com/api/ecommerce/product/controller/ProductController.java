@@ -1,25 +1,27 @@
 package com.api.ecommerce.product.controller;
 
+import com.api.ecommerce.common.dto.PageResponse;
 import com.api.ecommerce.product.dto.ProductDTO;
+import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.service.ProductService;
-import com.api.ecommerce.product.model.Product;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping("/")
-    public ResponseEntity<List<ProductDTO>> getProducts() {
-        List<ProductDTO> products = productService.getAllProducts();
+    public ResponseEntity<PageResponse<ProductDTO>> getProducts(@PageableDefault(size = 5, sort = "title") Pageable pageable) {
+        PageResponse<ProductDTO> products = productService.getAllProducts(pageable);
         return ResponseEntity.ok(products);
     }
 
@@ -27,5 +29,10 @@ public class ProductController {
     public ResponseEntity<ProductDTO> getProductById(@PathVariable String id) {
         ProductDTO product = productService.getProductById(id);
         return product == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(product);
+    }
+
+    @PostMapping
+    public void createProduct(@RequestBody ProductRequest productRequest) {
+        productService.addProduct(productRequest);
     }
 }

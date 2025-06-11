@@ -1,29 +1,46 @@
 package com.api.ecommerce.product.service;
 
+import com.api.ecommerce.common.dto.PageResponse;
 import com.api.ecommerce.product.dto.ProductDTO;
+import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.mapper.ProductMapper;
 import com.api.ecommerce.product.model.Product;
 import com.api.ecommerce.product.repository.ProductRepository;
-import org.bson.internal.BsonUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    public List<ProductDTO> getAllProducts() {
-        return productRepository.findAll().stream().map(ProductMapper.INSTANCE::toProductDTO).collect(Collectors.toList());
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    public PageResponse<ProductDTO> getAllProducts(Pageable pageable) {
+        Page<ProductDTO> page = productRepository.findAll(pageable)
+                .map(ProductMapper.INSTANCE::toProductDTO);
+
+        return new PageResponse<>(
+                page.getContent(),
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast(),
+                page.isFirst()
+        );
     }
 
     public ProductDTO getProductById(String id) {
         Product product = productRepository.findById(id).orElse(null);
         return product == null ? null : ProductMapper.INSTANCE.toProductDTO(product);
+    }
+
+    public void addProduct(ProductRequest productRequest) {
+        Product product = ProductMapper.INSTANCE.toProduct(productRequest);
+        productRepository.save(product);
     }
 }
