@@ -5,6 +5,8 @@ Este repositorio corresponde al **backend** del Trabajo Práctico Obligatorio de
 La aplicación simula un sistema de e-commerce que permite a los usuarios registrarse, iniciar sesión, navegar por un
 catálogo de productos, gestionar un carrito de compras y publicar productos.
 
+> API REST en http://localhost:8080/swagger-ui/index.html
+
 ## Índice
 
 [1. Requisitos](#1-requisitos)  
