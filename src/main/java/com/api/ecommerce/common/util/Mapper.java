@@ -4,6 +4,10 @@ import org.bson.types.ObjectId;
 
 public class Mapper {
     public ObjectId mapStringToObjectId(String id) {
-        return new ObjectId(id);
+        try {
+            return new ObjectId(id);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid ObjectId string: " + e.getMessage());
+        }
     }
 }
