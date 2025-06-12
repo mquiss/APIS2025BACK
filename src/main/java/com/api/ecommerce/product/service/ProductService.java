@@ -2,6 +2,7 @@ package com.api.ecommerce.product.service;
 
 import com.api.ecommerce.category.service.CategoryService;
 import com.api.ecommerce.common.dto.PageResponse;
+import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
 import com.api.ecommerce.common.util.Mapper;
 import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.dto.ProductResponse;
@@ -34,54 +35,81 @@ public class ProductService {
     }
 
     public List<ProductResponse> getAllProducts() {
-        return productRepository.findAll()
+        return productRepository
+                .findAll()
                 .stream()
                 .map(product -> productMapper.toProductResponse(product, userService, categoryService))
                 .collect(Collectors.toList());
     }
 
     public PageResponse<ProductResponse> getAllProductsPage(Pageable pageable) {
-        Page<Product> page = productRepository.findAll(pageable);
-        return productMapper.toPageResponse(page, userService, categoryService);
+        Page<Product> page = productRepository
+                .findAll(pageable);
+
+        return productMapper
+                .toPageResponse(page, userService, categoryService);
     }
 
     public ProductResponse getProductById(String id) {
-        return productRepository.findById(mapper.mapStringToObjectId(id))
+        return productRepository
+                .findById(mapper.mapStringToObjectId(id))
                 .map(product -> productMapper.toProductResponse(product, userService, categoryService))
-                .orElse(null);
+                .orElseThrow(RecursoNoEncontradoException::new);
     }
 
     public List<ProductResponse> getProductsByCategory(String categoryId) {
-        return productRepository.findByCategoryId(mapper.mapStringToObjectId(categoryId))
+        return productRepository
+                .findByCategoryId(mapper.mapStringToObjectId(categoryId))
                 .stream()
                 .map(product -> productMapper.toProductResponse(product, userService, categoryService))
                 .collect(Collectors.toList());
     }
 
     public ProductResponse createProduct(ProductRequest productRequest) {
-        Product product = productMapper.toProduct(productRequest);
+        Product product = productMapper
+                .toProduct(productRequest);
+
         productRepository.save(product);
-        return productMapper.toProductResponse(product, userService, categoryService);
+
+        return productMapper
+                .toProductResponse(product, userService, categoryService);
     }
 
     public ProductResponse updateProduct(String id, ProductRequest productRequest) {
-        Product product = productRepository.findById(mapper.mapStringToObjectId(id)).orElse(null);
-        Product newProduct = productMapper.toProduct(productRequest);
+        Product product = productRepository
+                .findById(mapper.mapStringToObjectId(id))
+                .orElseThrow(RecursoNoEncontradoException::new);
+
+        Product newProduct = productMapper
+                .toProduct(productRequest);
+
         newProduct.setId(product.getId());
         newProduct.setFeatured(product.isFeatured());
         newProduct.setCreatedAt(product.getCreatedAt());
+
         productRepository.save(newProduct);
-        return productMapper.toProductResponse(newProduct, userService, categoryService);
+
+        return productMapper
+                .toProductResponse(newProduct, userService, categoryService);
     }
 
-    public ProductResponse deleteProduct(String id) {
-        Product product = productRepository.findById(mapper.mapStringToObjectId(id)).orElse(null);
-        productRepository.delete(product);
-        return productMapper.toProductResponse(product, userService, categoryService);
+    public boolean deleteProduct(String id) {
+        try {
+            Product product = productRepository
+                    .findById(mapper.mapStringToObjectId(id))
+                    .orElseThrow(RecursoNoEncontradoException::new);
+
+            productRepository.delete(product);
+
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     public List<ProductResponse> getProductsByUserId(String userId) {
-        return productRepository.findByUserId(mapper.mapStringToObjectId(userId))
+        return productRepository
+                .findByUserId(mapper.mapStringToObjectId(userId))
                 .stream()
                 .map(product -> productMapper.toProductResponse(product, userService, categoryService))
                 .collect(Collectors.toList());
