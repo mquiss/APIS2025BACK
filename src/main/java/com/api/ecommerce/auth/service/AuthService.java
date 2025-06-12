@@ -14,7 +14,9 @@ import com.api.ecommerce.auth.util.JwtUtil;
 import com.api.ecommerce.user.dto.UserDTO;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthService {
         private UserRepository userRepository;
 
