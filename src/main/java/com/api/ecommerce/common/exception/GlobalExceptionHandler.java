@@ -1,6 +1,6 @@
 package com.api.ecommerce.common.exception;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(RecursoNoEncontradoException.class)
-    public ResponseEntity<String> manejarRecursoNoEncontrado(RecursoNoEncontradoException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<ProblemDetail> manejarRecursoNoEncontrado(RecursoNoEncontradoException ex) {
+        return new ResponseEntity<>(ex.getBody(), ex.getStatusCode());
     }
 
     @ExceptionHandler(ErrorCreacionException.class)
-    public ResponseEntity<String> manejarErrorCreacion(ErrorCreacionException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ProblemDetail> manejarErrorCreacion(ErrorCreacionException ex) {
+        return new ResponseEntity<>(ex.getBody(), ex.getStatusCode());
     }
-    // Otros handlers para otras excepciones personalizadas
+
 }

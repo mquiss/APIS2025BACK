@@ -1,8 +1,23 @@
 package com.api.ecommerce.common.exception;
 
-public class RecursoNoEncontradoException extends RuntimeException {
-    
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ProblemDetail;
+import org.springframework.web.ErrorResponse;
+
+public class RecursoNoEncontradoException extends RuntimeException implements ErrorResponse {
+    private final ProblemDetail body;
+
     public RecursoNoEncontradoException() {
-       super ("no se encontró el recurso");
+        this.body = ProblemDetail.forStatusAndDetail(getStatusCode(), "Recurso no encontrado");
+    }
+
+    @Override
+    public HttpStatusCode getStatusCode() {
+        return HttpStatusCode.valueOf(404);
+    }
+
+    @Override
+    public ProblemDetail getBody() {
+        return body;
     }
 }
