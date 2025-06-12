@@ -6,6 +6,6 @@ import org.bson.types.ObjectId;
 @Data
 public class OrderItem {
     private ObjectId productId;
-    private Integer quantity;
+    private int quantity;
     private double unitPrice;
 }
