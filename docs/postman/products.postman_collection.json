@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "fbef42f8-f5b7-48a9-ad16-1c065f58bc75",
+		"name": "products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36128031"
+	},
+	"item": [
+		{
+			"name": "visitante",
+			"item": [
+				{
+					"name": "fetch all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Password",
+								"value": "password",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"jgarcia\",\r\n  \"password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "Username",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "Password",
+									"value": "password",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch all (pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/page/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"page",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/6830d5c214aa9a83932da867",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"6830d5c214aa9a83932da867"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch all by category id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/category/6830d2e714aa9a83932da7ab",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"category",
+								"6830d2e714aa9a83932da7ab"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "personas no autenticadas"
+		},
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "vendedor",
+					"item": [
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userId\": \"6830d1f514aa9a83932da76f\",\r\n  \"categoryId\": \"6830d2e714aa9a83932da7ac\",\r\n  \"subcategoryIds\": [\"2-3\", \"2-1\", \"2-2\"],\r\n  \"title\": \"Laptop HP Pavilion V2\",\r\n  \"images\": [\r\n    {\r\n      \"url\": \"https://http2.mlstatic.com/D_NQ_NP_754921-MLA82991873214_032025-O.webp\",\r\n      \"isCover\": true\r\n    },\r\n    {\r\n      \"url\": \"https://http2.mlstatic.com/D_NQ_NP_638683-MLA82991873242_032025-O.webp\",\r\n      \"isCover\": false\r\n    },\r\n    {\r\n      \"url\": \"https://http2.mlstatic.com/D_NQ_NP_641760-MLA83281566713_032025-O.webp\",\r\n      \"isCover\": false\r\n    }\r\n  ],\r\n  \"description\": \"Laptop de 15 pulgadas con procesador Intel Core i5 y 8GB de RAM\",\r\n  \"price\": 1999,\r\n  \"stock\": 28,\r\n  \"discountPercentage\": 15\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/products/update/6830d5c214aa9a83932da85e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"update",
+										"6830d5c214aa9a83932da85e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update stock",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stock\": 15\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/products/update/stock/6830d5c214aa9a83932da85e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"update",
+										"stock",
+										"6830d5c214aa9a83932da85e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/products/delete/6830d5c214aa9a83932da860",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"delete",
+										"6830d5c214aa9a83932da860"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "persona que publicó el producto"
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"6830d1f514aa9a83932da76f\",\r\n  \"categoryId\": \"6830d2e714aa9a83932da7ac\",\r\n  \"subcategoryIds\": [\"2-3\", \"2-1\", \"2-2\"],\r\n  \"title\": \"Test\",\r\n  \"images\": [\r\n    {\r\n      \"url\": \"https://test.webp\",\r\n      \"isCover\": true\r\n    }\r\n  ],\r\n  \"description\": \"Producto Test\",\r\n  \"price\": 1000,\r\n  \"stock\": 200,\r\n  \"discountPercentage\": 20\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch all by user id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/user/6830d1f514aa9a83932da76e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"user",
+								"6830d1f514aa9a83932da76e"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "personas autenticadas"
+		}
+	]
+}
