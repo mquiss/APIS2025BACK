@@ -5,13 +5,11 @@ import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.mapper.ProductMapper;
 import com.api.ecommerce.product.model.Product;
 import com.api.ecommerce.product.repository.ProductRepository;
-import org.bson.internal.BsonUtil;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

@@ -3,13 +3,11 @@ package com.api.ecommerce.product.controller;
 import com.api.ecommerce.product.dto.ProductDTO;
 import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.service.ProductService;
-import com.api.ecommerce.product.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 // TODO: prioridad
 // - export const fetchAllProducts = () => api.get('/products');
