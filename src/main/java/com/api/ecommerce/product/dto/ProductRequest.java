@@ -29,7 +29,7 @@ public class ProductRequest {
     private int price;
     @Min(value = 0, message = "stock must be non-negative")
     private int stock;
-    @Min(value = 0)
-    @Max(value = 100)
+    @Min(value = 0, message = "discountPercentage must be non-negative")
+    @Max(value = 100, message = "discountPercentage must be 100 or less")
     private int discountPercentage;
 }
