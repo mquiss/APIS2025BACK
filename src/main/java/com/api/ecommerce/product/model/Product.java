@@ -1,5 +1,6 @@
 package com.api.ecommerce.product.model;
 
+import lombok.Builder;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +12,7 @@ import java.time.Instant;
 import java.util.List;
 
 @Data
+@Builder
 @Document(collection = "products")
 public class Product {
     @Id

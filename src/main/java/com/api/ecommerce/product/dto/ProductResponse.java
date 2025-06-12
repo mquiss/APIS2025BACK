@@ -4,6 +4,7 @@ import com.api.ecommerce.product.model.Image;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -19,4 +20,5 @@ public class ProductResponse {
     private int stock;
     private int discountPercentage;
     private boolean isFeatured;
+    private LocalDateTime createdAt;
 }

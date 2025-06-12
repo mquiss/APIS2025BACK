@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 // TODO: prioridad
-// - export const fetchAllProducts = () => api.get('/products'); ✅ falta paginacion
+// - export const fetchAllProducts = () => api.get('/products'); ✅
 // - export const fetchProductById = (id) => api.get(`/products/${id}`); ✅
 // - export const updateProduct = (id, data) => api.put(`/products/${id}`, data); ✅ falta testear
 // - export const updateProductStock = (id, newStock) => api.patch(`/products/${id}`, { stock: newStock });
 // - export const createProduct = (productData) => api.post('/products', productData); ✅ falta testear
 // - export const deleteProduct = (id) => api.delete(`/products/${id}`); ✅ falta testear
-// - export const fetchUserProducts = (userId) => api.get(`/products?userId=${userId}`) ; ✅ falta paginacion
+// - export const fetchUserProducts = (userId) => api.get(`/products?userId=${userId}`) ; ✅
+// - fetchProductByCategoryId ✅
 
 // TODO: excepciones personalizadas
 
