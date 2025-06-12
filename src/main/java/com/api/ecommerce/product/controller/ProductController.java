@@ -2,7 +2,10 @@ package com.api.ecommerce.product.controller;
 
 import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.dto.ProductResponse;
+import com.api.ecommerce.common.dto.PageResponse;
 import com.api.ecommerce.product.service.ProductService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +35,12 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getProducts() {
         List<ProductResponse> products = productService.getAllProducts();
         return products.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/page/")
+    public ResponseEntity<PageResponse<ProductResponse>> getProducts(@PageableDefault(size = 5, sort = "title") Pageable pageable) {
+        PageResponse<ProductResponse> products = productService.getAllProductsPage(pageable);
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/{id}")

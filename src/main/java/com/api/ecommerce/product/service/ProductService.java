@@ -2,6 +2,7 @@ package com.api.ecommerce.product.service;
 
 import com.api.ecommerce.category.model.Subcategory;
 import com.api.ecommerce.category.service.CategoryService;
+import com.api.ecommerce.common.dto.PageResponse;
 import com.api.ecommerce.product.dto.ProductDTO;
 import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.dto.ProductResponse;
@@ -9,13 +10,11 @@ import com.api.ecommerce.product.mapper.ProductMapper;
 import com.api.ecommerce.product.model.Product;
 import com.api.ecommerce.product.repository.ProductRepository;
 import com.api.ecommerce.user.service.UserService;
-import org.bson.internal.BsonUtil;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +34,25 @@ public class ProductService {
                 .stream()
                 .map(this::buildProductResponse)
                 .collect(Collectors.toList());
+    }
+
+    public PageResponse<ProductResponse> getAllProductsPage(Pageable pageable) {
+        Page<Product> page = productRepository.findAll(pageable);
+
+        List<ProductResponse> content = page.getContent()
+                .stream()
+                .map(this::buildProductResponse)
+                .collect(Collectors.toList());
+
+        return new PageResponse<>(
+                content,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast(),
+                page.isFirst()
+        );
     }
 
     public ProductResponse getProductById(String id) {
