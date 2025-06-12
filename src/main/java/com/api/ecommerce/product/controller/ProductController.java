@@ -3,7 +3,9 @@ package com.api.ecommerce.product.controller;
 import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.dto.ProductResponse;
 import com.api.ecommerce.common.dto.PageResponse;
+import com.api.ecommerce.product.dto.StockRequest;
 import com.api.ecommerce.product.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -51,13 +53,13 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         ProductResponse productResponse = productService.createProduct(productRequest);
         return productResponse == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(productResponse);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable String id, @RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable String id, @Valid @RequestBody ProductRequest productRequest) {
         ProductResponse productResponse = productService.updateProduct(id, productRequest);
         return productResponse == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(productResponse);
     }
@@ -82,7 +84,7 @@ public class ProductController {
 
     // falta implementar
     @PatchMapping("/update/stock/{id}")
-    public ResponseEntity<ProductResponse> updateStock(@PathVariable String id, @RequestBody String newStock) {
+    public ResponseEntity<ProductResponse> updateStock(@PathVariable String id, @Valid @RequestBody StockRequest stockRequest) {
         return ResponseEntity.notFound().build();
     }
 }
