@@ -1,6 +1,5 @@
 package com.api.ecommerce.user.controller;
 
-import com.api.ecommerce.auth.controller.LoginRequest;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.service.UserService;
 import com.api.ecommerce.user.dto.UserDTO;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
-// TODO: mover createUser/register y login a AuthController
 
 // TODO:
 // - export const fetchAllUsers = () => api.get('/users');
@@ -32,14 +29,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        try {
-            return userService.login(request);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error interno: " + e.getMessage());
-        }
-    }
+    
 
     @GetMapping("/")
     public List<User> getUsers() {
@@ -60,17 +50,6 @@ public class UserController {
         }catch(Exception e){
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
-    }
-    @PostMapping("/nuevo")
-    public ResponseEntity<?> createUser(@RequestBody UserDTO user) {
-        try {
-            return userService.createUser(user) != null 
-                ? ResponseEntity.status(201).body(user) 
-                : ResponseEntity.status(400).body("Error al crear el usuario");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error interno: " + e.getMessage());
-        }
-
     }
 
     @PutMapping("/{id}")
