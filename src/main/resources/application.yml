@@ -11,3 +11,10 @@ spring:
     user:
       name: ${SC_USERNAME}
       password: ${SC_PASSWORD}
+
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+      persistAuthorization: true
+    api-docs:
+      path: /v3/api-docs
