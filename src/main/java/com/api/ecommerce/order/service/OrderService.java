@@ -1,7 +1,7 @@
 package com.api.ecommerce.order.service;
 
 import com.api.ecommerce.common.util.Mapper;
-import com.api.ecommerce.order.controller.OrderResponse;
+import com.api.ecommerce.order.dto.OrderResponse;
 import com.api.ecommerce.order.mapper.OrderMapper;
 import com.api.ecommerce.order.mapper.OrderMapperImpl;
 import com.api.ecommerce.order.repository.OrderRepository;
