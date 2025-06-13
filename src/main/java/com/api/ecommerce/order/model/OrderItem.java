@@ -1,5 +1,6 @@
 package com.api.ecommerce.order.model;
 
+import lombok.Builder;
 import lombok.Data;
 import org.bson.types.ObjectId;
 
