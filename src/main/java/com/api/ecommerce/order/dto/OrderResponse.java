@@ -1,6 +1,5 @@
-package com.api.ecommerce.order.controller;
+package com.api.ecommerce.order.dto;
 
-import com.api.ecommerce.order.model.OrderItem;
 import lombok.Builder;
 import lombok.Data;
 
