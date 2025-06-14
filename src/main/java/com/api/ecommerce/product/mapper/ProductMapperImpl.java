@@ -9,12 +9,14 @@ import com.api.ecommerce.product.dto.ProductResponse;
 import com.api.ecommerce.product.model.Product;
 import com.api.ecommerce.user.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class ProductMapperImpl implements ProductMapper{
     private final Mapper mapper;
 
@@ -33,6 +35,7 @@ public class ProductMapperImpl implements ProductMapper{
                 .collect(Collectors.toList());
 
         return ProductResponse.builder()
+                .id(product.getId().toString())
                 .username(username)
                 .category(categoryName)
                 .subcategories(subcategoryNames)
