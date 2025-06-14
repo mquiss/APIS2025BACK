@@ -36,10 +36,10 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<ProductResponse>> getProducts() {
         List<ProductResponse> products = productService.getAllProducts();
-        return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/page/")
@@ -51,43 +51,43 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
         ProductResponse product = productService.getProductById(id);
-        return product == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(product);
+        return ResponseEntity.ok(product);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         ProductResponse productResponse = productService.createProduct(productRequest);
-        URI location = URI.create("/products/");
-        return productResponse == null ? ResponseEntity.badRequest().build() : ResponseEntity.created(location).body(productResponse);
+        URI location = URI.create("/products/"+productResponse.getId());
+        return ResponseEntity.created(location).body(productResponse);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id, @Valid @RequestBody ProductRequest productRequest) {
         ProductResponse productResponse = productService.updateProduct(id, productRequest);
-        return productResponse == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(productResponse);
+        return ResponseEntity.ok(productResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
-        boolean deleted = productService.deleteProduct(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ProductResponse>> getProductsByUserId(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId) {
         List<ProductResponse> products = productService.getProductsByUserId(userId);
-        return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ProductResponse>> getProductsByCategory(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String categoryId) {
         List<ProductResponse> products = productService.getProductsByCategory(categoryId);
-        return products.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(products);
+        return ResponseEntity.ok(products);
     }
 
-    // falta implementar
-    @PatchMapping("/update/stock/{id}")
+    @PatchMapping("/update/{id}/stock")
     public ResponseEntity<ProductResponse> updateStock(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id, @Valid @RequestBody StockRequest stockRequest) {
-        return ResponseEntity.notFound().build();
+        ProductResponse product = productService.updateStock(id, stockRequest);
+        return ResponseEntity.ok(product);
     }
 }
