@@ -1,55 +1,68 @@
 package com.api.ecommerce.user.controller;
 
+import com.api.ecommerce.user.dto.*;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.service.UserService;
-import com.api.ecommerce.user.dto.UserDTO;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-// TODO:
-// - export const fetchAllUsers = () => api.get('/users');
-// - export const fetchUserById = (id) => api.get(`/users/${id}`);
-// - export const updateUsername = (id, newUsername) => api.patch(`/users/${id}`, { username: newUsername });
-// - export const updateFirstName = (id, newFirstName) => api.patch(`/users/${id}`, { firstName: newFirstName });
-// - export const updateLastName = (id, newLastName) => api.patch(`/users/${id}`, { lastName: newLastName });
-// - export const updateAddress = (id, newAddress) => api.patch(`/users/${id}`, { address: newAddress });
-// - export const updateAvatar = (id, newAvatar) => api.patch(`/users/${id}`, { avatar: newAvatar });
-// - export const updateEmail = (id, newEmail) => api.patch(`/users/${id}`, { email: newEmail });
-// - export const updatePassword = (id, newPassword) => api.patch(`/users/${id}`, { password: newPassword });
-
+@Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
-
-    
-
-    @GetMapping("/")
-    public List<User> getUsers() {
-        return userService.getAllUsers();
+    @GetMapping
+    public ResponseEntity<List<UserResponse>> getUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable String id) {
-        try{
-            Optional<UserDTO> user = userService.getUserById(id);
-            if (user.isPresent()) {
-                
-                return ResponseEntity.ok(user.get());
-            }
-                else {
-            return ResponseEntity.status(404).body("Usuario no encontrado");
-        }
-        }catch(Exception e){
-            return ResponseEntity.status(500).body("Error: " + e.getMessage());
-        }
+    public ResponseEntity<UserResponse> getUserById(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @PatchMapping("/{id}/username")
+    public ResponseEntity<UserResponse> updateUsername(@Valid @RequestBody UsernameRequest usernameRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
+        return ResponseEntity.ok(userService.updateUsername(usernameRequest, id));
+    }
+
+    @PatchMapping("/{id}/firstName")
+    public ResponseEntity<UserResponse> updateFirstName(@Valid @RequestBody FirstNameRequest firstNameRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
+        return ResponseEntity.ok(userService.updateFirstName(firstNameRequest, id));
+    }
+
+    @PatchMapping("/{id}/lastName")
+    public ResponseEntity<UserResponse> updateLastName(@Valid @RequestBody LastNameRequest lastNameRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
+        return ResponseEntity.ok(userService.updateLastName(lastNameRequest, id));
+    }
+
+    @PatchMapping("/{id}/address")
+    public ResponseEntity<UserResponse> updateAddress(@Valid @RequestBody AddressRequest addressRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
+        return ResponseEntity.ok(userService.updateAddress(addressRequest, id));
+    }
+
+    @PatchMapping("/{id}/avatar")
+    public ResponseEntity<UserResponse> updateAvatar(@Valid @RequestBody AvatarRequest avatarRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
+        return ResponseEntity.ok(userService.updateAvatar(avatarRequest, id));
+    }
+
+    @PatchMapping("/{id}/email")
+    public ResponseEntity<UserResponse> updateEmail(@Valid @RequestBody EmailRequest emailRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
+        return ResponseEntity.ok(userService.updateEmail(emailRequest, id));
+    }
+    // TODO: crear metodo para encriptar contraseñas y usar en updatePassword del service
+    @PatchMapping("/{id}/password")
+    public ResponseEntity<UserResponse> updatePassword(@Valid @RequestBody PasswordRequest passwordRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
+        return ResponseEntity.ok(userService.updatePassword(passwordRequest, id));
     }
 
     @PutMapping("/{id}")

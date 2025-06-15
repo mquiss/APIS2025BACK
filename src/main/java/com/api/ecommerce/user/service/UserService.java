@@ -1,56 +1,98 @@
 package com.api.ecommerce.user.service;
 
+import com.api.ecommerce.common.util.Mapper;
+import com.api.ecommerce.user.dto.*;
+import com.api.ecommerce.user.mapper.UserMapper;
+import com.api.ecommerce.user.model.Address;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.repository.UserRepository;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 
 import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
 
-import com.api.ecommerce.user.dto.UserDTO;
-
 @Service
+@RequiredArgsConstructor
 public class UserService {
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final Mapper mapper;
 
-    @Autowired
-    private UserRepository userRepository;
-
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    // FIXME: posible exception si userRepository no cuenta con usuarios e intenta hacer stream
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toUserResponse)
+                .toList();
     }
 
-    public Optional<UserDTO> getUserById(String id) {
-        try {
-            if (id == null || id.isEmpty()) {
-                throw new IllegalArgumentException("El ID del usuario no puede ser nulo o vacío");
-            }
-            if (!userRepository.existsById(new ObjectId(id))) {
-                throw new RuntimeException("Usuario no encontrado con id: " + id);
-            }
-            Optional<User> buscado=userRepository.findById(new ObjectId(id));
-            UserDTO user = new UserDTO();
-            user.setId(buscado.get().getId());
-            user.setUsername(buscado.get().getUsername());
-            user.setEmail(buscado.get().getEmail());   
-            user.setFirstName(buscado.get().getFirstName());
-            user.setLastName(buscado.get().getLastName());
-            user.setAvatar(buscado.get().getAvatar());
-            user.setAddress(buscado.get().getAddress());
-            user.setCreatedAt(buscado.get().getCreatedAt());
-            user.setUpdatedAt(buscado.get().getUpdatedAt());
-            return Optional.of(user);
-        } catch (Exception e) {
-            throw new RecursoNoEncontradoException(); // lanzar excepción personalizada
-        }
+    public UserResponse getUserById(String userId) {
+        User user = userRepository.findById(mapper.mapStringToObjectId(userId)).orElseThrow(RecursoNoEncontradoException::new);
+        return userMapper.toUserResponse(user);
     }
 
+    public UserResponse updateUsername(UsernameRequest usernameRequest, String id) {
+        User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
+        user.setUsername(usernameRequest.username());
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
+    public UserResponse updateFirstName(FirstNameRequest firstNameRequest, String id) {
+        User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
+        user.setFirstName(firstNameRequest.firstName());
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
+    public UserResponse updateLastName(LastNameRequest lastNameRequest, String id) {
+        User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
+        user.setLastName(lastNameRequest.lastName());
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
+    public UserResponse updateAddress(AddressRequest addressRequest, String id) {
+        User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
+        Address address = user.getAddress();
+        address.setStreet(addressRequest.street());
+        address.setState(addressRequest.state());
+        address.setCountry(addressRequest.country());
+        user.setAddress(address);
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
+    public UserResponse updateEmail(EmailRequest emailRequest, String id) {
+        User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
+        user.setEmail(emailRequest.email());
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
+    public UserResponse updateAvatar(AvatarRequest avatarRequest, String id) {
+        User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
+        user.setAvatar(avatarRequest.avatar());
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+
+    public UserResponse updatePassword(PasswordRequest passwordRequest, String id) {
+        User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
+        user.setPassword(passwordRequest.password());
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
 
     public Optional<User> updateUser(String id, User userDetails) {
         if (id == null || id.isEmpty()) {
