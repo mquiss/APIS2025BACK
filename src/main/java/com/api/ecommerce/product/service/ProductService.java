@@ -11,6 +11,7 @@ import com.api.ecommerce.product.mapper.ProductMapperImpl;
 import com.api.ecommerce.product.model.Product;
 import com.api.ecommerce.product.repository.ProductRepository;
 import com.api.ecommerce.user.service.UserService;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -113,5 +114,9 @@ public class ProductService {
                 .stream()
                 .map(product -> productMapper.toProductResponse(product, userService, categoryService))
                 .collect(Collectors.toList());
+    }
+
+    public Product getProductById(ObjectId productId) {
+        return productRepository.findById(productId).orElseThrow(RecursoNoEncontradoException::new);
     }
 }
