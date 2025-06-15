@@ -1,48 +1,43 @@
 package com.api.ecommerce.cart.controller;
 
-import com.api.ecommerce.cart.model.Cart;
-import com.api.ecommerce.cart.model.CartItem;
+import com.api.ecommerce.cart.dto.CartRequest;
+import com.api.ecommerce.cart.dto.CartResponse;
+import com.api.ecommerce.cart.dto.ProductsRequest;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.api.ecommerce.cart.service.CartService;
 
 import java.util.List;
 
-
-// TODO: prioridad
-// - export const createCart = (cartData) => api.post(`/carts`, cartData);
-// - export const fetchUserCart = (userId) => api.get(`/carts/${userId}`);
-// - export const saveUserCart = (userId, products) => api.put(`/carts/${userId}`, { products });
-
-// TODO: implementar excepciones, dto para response(donde se resuelve ObjectId -> String) y request(para crear nuevo carrito)
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/carts")
 public class CartController {
     private final CartService cartService;
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createCart(@RequestBody Cart Cart) { // esta cosa se ejecuta despues de register
-        return ResponseEntity.ok("Carrito creado exitosamente");
+    @GetMapping
+    public ResponseEntity<List<CartResponse>> getAllCarts() {
+        return ResponseEntity.ok(cartService.getAllCarts());
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> fetchUserCart(@PathVariable String userId) {
-        return ResponseEntity.ok("Carrito del usuario obtenido exitosamente");
+    public ResponseEntity<CartResponse> getCartByUserId(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId) {
+        return ResponseEntity.ok(cartService.getCartByUserId(userId));
     }
 
-    // TODO: definir si la lista de productos viene con productos o productItem, dónde se haría la conversión si es necesaria
-    @PutMapping("/save/{userId}")
-    public ResponseEntity<?> saveUserCart(@PathVariable String userId, List<CartItem> products) {
-        return ResponseEntity.ok("Carrito del usuario guardado exitosamente");
+    @PostMapping
+    public ResponseEntity<CartResponse> createCart(@Valid @RequestBody CartRequest cartRequest) { // esta cosa se ejecuta despues de register
+        return ResponseEntity.ok(cartService.createCart(cartRequest));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<?> getAllCarts() {
-        List<Cart> carts = cartService.getAllCarts();
-        return ResponseEntity.ok(carts.isEmpty() ? "No hay carritos disponibles" : carts);
+    @PatchMapping("/{userId}/products")
+    public ResponseEntity<CartResponse> updateProducts(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId, @Valid @RequestBody ProductsRequest productsRequest) {
+        return ResponseEntity.ok(cartService.updateProducts(userId, productsRequest));
     }
 }
