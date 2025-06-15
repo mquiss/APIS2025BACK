@@ -5,14 +5,19 @@ import com.api.ecommerce.order.dto.OrderItemResponse;
 import com.api.ecommerce.order.dto.OrderResponse;
 import com.api.ecommerce.order.model.Order;
 import com.api.ecommerce.order.model.OrderItem;
+import com.api.ecommerce.product.model.Image;
+import com.api.ecommerce.product.model.Product;
+import com.api.ecommerce.product.service.ProductService;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class OrderMapperImpl implements OrderMapper {
     private final Mapper mapper;
+    private final ProductService productService;
 
-    public OrderMapperImpl(Mapper mapper) {
+    public OrderMapperImpl(Mapper mapper, ProductService productService) {
+        this.productService = productService;
         this.mapper = mapper;
     }
 
@@ -28,8 +33,10 @@ public class OrderMapperImpl implements OrderMapper {
 
     @Override
     public OrderItemResponse toOrderItemResponse(OrderItem orderItem) {
+        Product product = productService.getProductById(orderItem.getProductId());
         return OrderItemResponse.builder()
-                .productId(orderItem.getProductId().toString())
+                .title(product.getTitle())
+                .image(product.getImages().stream().filter(Image::isCover).findFirst().orElseThrow(null).getUrl())
                 .quantity(orderItem.getQuantity())
                 .unitPrice(orderItem.getUnitPrice())
                 .build();

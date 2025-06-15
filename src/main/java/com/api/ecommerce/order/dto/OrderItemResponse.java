@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class OrderItemResponse {
-    private String productId; // TODO: cambiar por datos que se muestran en front
+    private String title;
+    private String image;
     private int quantity;
     private double unitPrice;
 }
