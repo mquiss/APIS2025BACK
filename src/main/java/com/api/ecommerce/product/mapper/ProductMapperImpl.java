@@ -8,22 +8,24 @@ import com.api.ecommerce.product.dto.ProductRequest;
 import com.api.ecommerce.product.dto.ProductResponse;
 import com.api.ecommerce.product.model.Product;
 import com.api.ecommerce.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@RequiredArgsConstructor
 public class ProductMapperImpl implements ProductMapper{
     private final Mapper mapper;
-
-    public ProductMapperImpl(Mapper mapper) {
-        this.mapper = mapper;
-    }
+    private final UserService userService;
+    private final CategoryService categoryService;
 
     @Override
-    public ProductResponse toProductResponse(Product product, UserService userService, CategoryService categoryService) {
+    public ProductResponse toProductResponse(Product product) {
         String username = userService.findUserById(product.getUserId()).getUsername();
         String categoryName = categoryService.findCategoryById(product.getCategoryId()).getName();
         List<String> subcategoryNames = categoryService.findCategoryById(product.getCategoryId())
@@ -33,6 +35,7 @@ public class ProductMapperImpl implements ProductMapper{
                 .collect(Collectors.toList());
 
         return ProductResponse.builder()
+                .id(product.getId().toString())
                 .username(username)
                 .category(categoryName)
                 .subcategories(subcategoryNames)
@@ -63,10 +66,10 @@ public class ProductMapperImpl implements ProductMapper{
     }
 
     @Override
-    public PageResponse<ProductResponse> toPageResponse(Page<Product> page, UserService userService, CategoryService categoryService) {
+    public PageResponse<ProductResponse> toPageResponse(Page<Product> page) {
         List<ProductResponse> content = page.getContent()
                 .stream()
-                .map(product -> toProductResponse(product, userService, categoryService))
+                .map(this::toProductResponse)
                 .collect(Collectors.toList());
 
         return new PageResponse<>(

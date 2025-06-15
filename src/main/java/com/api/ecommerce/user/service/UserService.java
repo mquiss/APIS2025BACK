@@ -92,6 +92,6 @@ public class UserService {
     }
 
     public User findUserById(ObjectId id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(RecursoNoEncontradoException::new);
     }
 }
