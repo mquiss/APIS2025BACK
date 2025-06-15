@@ -18,4 +18,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getBody(), ex.getStatusCode());
     }
 
+    @ExceptionHandler(InvalidObjectIdException.class)
+    public ResponseEntity<ProblemDetail> handleInvalidObjectId(InvalidObjectIdException ex) {
+        return new ResponseEntity<>(ex.getBody(), ex.getStatusCode());
+    }
+
 }

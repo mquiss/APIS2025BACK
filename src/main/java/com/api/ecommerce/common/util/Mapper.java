@@ -1,5 +1,6 @@
 package com.api.ecommerce.common.util;
 
+import com.api.ecommerce.common.exception.InvalidObjectIdException;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ public class Mapper {
         try {
             return new ObjectId(id);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid ObjectId string: " + e.getMessage());
+            throw new InvalidObjectIdException();
         }
     }
 }
