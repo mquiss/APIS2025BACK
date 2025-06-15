@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -17,11 +18,10 @@ import com.api.ecommerce.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
-        private UserRepository userRepository;
-
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
 
     public ResponseEntity<?> login(LoginRequest request) {
         if (request.getUsername() == null || request.getPassword() == null) {
@@ -49,7 +49,7 @@ public class AuthService {
 
     public Optional<User> createUser(UserDTO user) {
     try {
-        
+
         if (user == null || user.getUsername() == null || user.getEmail() == null) {
             throw new IllegalArgumentException("Datos del usuario incompletos");
         }
