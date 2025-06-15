@@ -2,6 +2,7 @@ package com.api.ecommerce.cart.controller;
 
 import com.api.ecommerce.cart.model.Cart;
 import com.api.ecommerce.cart.model.CartItem;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +19,10 @@ import java.util.List;
 
 // TODO: implementar excepciones, dto para response(donde se resuelve ObjectId -> String) y request(para crear nuevo carrito)
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/carts")
 public class CartController {
-
-    @Autowired
-    private CartService cartService;
+    private final CartService cartService;
 
     @PostMapping("/create")
     public ResponseEntity<?> createCart(@RequestBody Cart Cart) { // esta cosa se ejecuta despues de register
