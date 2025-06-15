@@ -7,6 +7,5 @@ import com.api.ecommerce.order.model.OrderItem;
 
 public interface OrderMapper {
     OrderResponse toOrderResponse(Order order);
-
     OrderItemResponse toOrderItemResponse(OrderItem orderItem);
 }

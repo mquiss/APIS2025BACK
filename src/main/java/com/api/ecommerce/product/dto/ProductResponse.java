@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 @Builder
 public class ProductResponse {
+    private String id;
     private String username;
     private String category;
     private List<String> subcategories;
