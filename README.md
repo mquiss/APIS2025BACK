@@ -138,12 +138,12 @@ de empezar a trabajar en el proyecto.
 
 ### 3.1 TODO List
 
-- [ ] Products
-- [ ] Carts
+- [x] Products
+- [x] Carts
 - [ ] Users
-- [ ] Categories
-- [ ] Orders
-- [ ] Auth
+- [x] Categories
+- [x] Orders
+- [x] Auth
 
 ### 3.2 Subir a Github
 
