@@ -13,6 +13,10 @@ import com.api.ecommerce.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class CartMapperImpl implements CartMapper {
@@ -21,9 +25,17 @@ public class CartMapperImpl implements CartMapper {
 
     @Override
     public CartResponse toCartResponse(Cart cart) {
+        List<CartItemResponse> products = Collections.emptyList();
+
+        if (cart.getProducts() != null && !cart.getProducts().isEmpty()) {
+            products = cart.getProducts().stream()
+                    .map(this::toCartItemResponse)
+                    .toList();
+        }
+
         return CartResponse.builder()
                 .userId(cart.getUserId().toString())
-                .products(cart.getProducts().stream().map(this::toCartItemResponse).toList())
+                .products(products)
                 .build();
     }
 
@@ -49,9 +61,17 @@ public class CartMapperImpl implements CartMapper {
 
     @Override
     public Cart toCart(CartRequest cartRequest) {
+        List<CartItem> products = Collections.emptyList();
+
+        if (cartRequest.getProducts() != null && !cartRequest.getProducts().isEmpty()) {
+            products = cartRequest.getProducts().stream()
+                    .map(this::toCartItem)
+                    .toList();
+        }
+
         return Cart.builder()
                 .userId(mapper.mapStringToObjectId(cartRequest.getUserId()))
-                .products(cartRequest.getProducts().stream().map(this::toCartItem).toList())
+                .products(products)
                 .build();
     }
 
