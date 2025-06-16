@@ -5,22 +5,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.api.ecommerce.auth.dto.RegisterRequest;
+import com.api.ecommerce.user.dto.UserResponse;
+import com.api.ecommerce.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 
-import com.api.ecommerce.auth.controller.LoginRequest;
+import com.api.ecommerce.auth.dto.LoginRequest;
 import com.api.ecommerce.auth.util.JwtUtil;
 import com.api.ecommerce.user.dto.UserDTO;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
     private final UserRepository userRepository;
+    private final UserService userService;
     private final JwtUtil jwtUtil;
 
     public ResponseEntity<?> login(LoginRequest request) {
@@ -47,26 +51,7 @@ public class AuthService {
         }
     }
 
-    public Optional<User> createUser(UserDTO user) {
-    try {
-
-        if (user == null || user.getUsername() == null || user.getEmail() == null) {
-            throw new IllegalArgumentException("Datos del usuario incompletos");
-        }
-        User nuevo = new User();
-        nuevo.setUsername(user.getUsername());
-        nuevo.setEmail(user.getEmail());
-        nuevo.setFirstName(user.getFirstName());
-        nuevo.setLastName(user.getLastName());
-        nuevo.setAvatar(user.getAvatar());
-        nuevo.setAddress(user.getAddress());
-        nuevo.setCreatedAt(user.getCreatedAt());
-        nuevo.setUpdatedAt(user.getUpdatedAt());
-
-        userRepository.save(nuevo);
-        return Optional.ofNullable(nuevo); // en caso extremo, podría ser null
-    } catch (Exception e) {
-        throw new RuntimeException("Error al crear el usuario: " + e.getMessage());
-    }
+    public UserResponse createUser(RegisterRequest registerRequest) { // debe retornar un usuario?
+        return userService.createUser(registerRequest, jwtUtil.getPasswordEncoder());
     }
 }

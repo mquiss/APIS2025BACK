@@ -1,4 +1,4 @@
-package com.api.ecommerce.auth.controller;
+package com.api.ecommerce.auth.dto;
 
 import lombok.Data;
 

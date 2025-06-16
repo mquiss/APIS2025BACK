@@ -3,6 +3,8 @@ package com.api.ecommerce.auth.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -30,25 +32,29 @@ public class JwtUtil {
                 .getSubject();
     }
 
-public boolean validateToken(String token, String username) {
-    try {
-        // Parsear el token y obtener las claims
-        var claims = Jwts.parserBuilder()
-                         .setSigningKey(key)
-                         .build()
-                         .parseClaimsJws(token)
-                         .getBody();
+    public boolean validateToken(String token, String username) {
+        try {
+            // Parsear el token y obtener las claims
+            var claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
 
-        String tokenUsername = claims.getSubject(); // subject = username
-        return (tokenUsername.equals(username) && !isTokenExpired(claims));
+            String tokenUsername = claims.getSubject(); // subject = username
+            return (tokenUsername.equals(username) && !isTokenExpired(claims));
 
-    } catch (JwtException e) {
-        return false;
+        } catch (JwtException e) {
+            return false;
+        }
     }
-}
 
-// Método auxiliar para verificar expiración
-private boolean isTokenExpired(Claims claims) {
-    return claims.getExpiration().before(new Date());
-}
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // Método auxiliar para verificar expiración
+    private boolean isTokenExpired(Claims claims) {
+        return claims.getExpiration().before(new Date());
+    }
 }

@@ -1,5 +1,6 @@
 package com.api.ecommerce.user.service;
 
+import com.api.ecommerce.auth.dto.RegisterRequest;
 import com.api.ecommerce.common.util.Mapper;
 import com.api.ecommerce.user.dto.*;
 import com.api.ecommerce.user.mapper.UserMapper;
@@ -11,6 +12,7 @@ import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -135,5 +137,11 @@ public class UserService {
 
     public User findUserById(ObjectId id) {
         return userRepository.findById(id).orElseThrow(RecursoNoEncontradoException::new);
+    }
+
+    public UserResponse createUser(RegisterRequest registerRequest, PasswordEncoder passwordEncoder) {
+        User user = userMapper.toUser(registerRequest, passwordEncoder);
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
     }
 }

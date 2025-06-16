@@ -1,7 +1,10 @@
 package com.api.ecommerce.auth.controller;
 
+import com.api.ecommerce.auth.dto.LoginRequest;
+import com.api.ecommerce.auth.dto.RegisterRequest;
+import com.api.ecommerce.user.dto.UserResponse;
+import com.api.ecommerce.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,21 +32,9 @@ public class AuthController {
             return ResponseEntity.status(500).body("Error interno: " + e.getMessage());
         }
     }
-    
 
-    @PostMapping("/nuevo")
-    public ResponseEntity<?> createUser(@RequestBody UserDTO user) {
-        try {
-            return authService.createUser(user) != null 
-                ? ResponseEntity.status(201).body(user) 
-                : ResponseEntity.status(400).body("Error al crear el usuario");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error interno: " + e.getMessage());
-        }
-
+    @PostMapping("/register")
+    public ResponseEntity<UserResponse> register(@RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.ok(authService.createUser(registerRequest));
     }
-
-
-
-
 }
