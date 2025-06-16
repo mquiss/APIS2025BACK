@@ -114,6 +114,15 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public PageResponse<ProductResponse> getProductsByUserId(String userId, Pageable pageable) {
+        ObjectId objectUserId = mapper.mapStringToObjectId(userId);
+        userService.findUserById(objectUserId);
+
+        Page<Product> page = productRepository.findByUserId(objectUserId, pageable);
+
+        return productMapper.toPageResponse(page);
+    }
+
     public ProductResponse updateStock(String id, StockRequest stock) {
         Product product = productRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
         product.setStock(stock.stock());

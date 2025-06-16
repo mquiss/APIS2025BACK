@@ -17,16 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
-// TODO: prioridad
-// - export const fetchAllProducts = () => api.get('/products'); ✅
-// - export const fetchProductById = (id) => api.get(`/products/${id}`); ✅
-// - export const updateProduct = (id, data) => api.put(`/products/${id}`, data); ✅ falta testear
-// - export const updateProductStock = (id, newStock) => api.patch(`/products/${id}`, { stock: newStock });
-// - export const createProduct = (productData) => api.post('/products', productData); ✅ falta testear
-// - export const deleteProduct = (id) => api.delete(`/products/${id}`); ✅ falta testear
-// - export const fetchUserProducts = (userId) => api.get(`/products?userId=${userId}`) ; ✅
-// - fetchProductByCategoryId ✅
-
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -40,7 +30,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/page/")
+    @GetMapping("/page")
     public ResponseEntity<PageResponse<ProductResponse>> getProducts(@PageableDefault(size = 5, sort = "title") Pageable pageable) {
         PageResponse<ProductResponse> products = productService.getAllProductsPage(pageable);
         return ResponseEntity.ok(products);
@@ -74,6 +64,12 @@ public class ProductController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ProductResponse>> getProductsByUserId(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId) {
         List<ProductResponse> products = productService.getProductsByUserId(userId);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/user/{userId}/page")
+    public ResponseEntity<PageResponse<ProductResponse>> getProductByUserId(Pageable pageable, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId) {
+        PageResponse<ProductResponse> products = productService.getProductsByUserId(userId, pageable);
         return ResponseEntity.ok(products);
     }
 
