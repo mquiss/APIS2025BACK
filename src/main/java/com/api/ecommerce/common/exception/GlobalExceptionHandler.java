@@ -1,5 +1,6 @@
 package com.api.ecommerce.common.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,6 +22,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidObjectIdException.class)
     public ResponseEntity<ProblemDetail> handleInvalidObjectId(InvalidObjectIdException ex) {
         return new ResponseEntity<>(ex.getBody(), ex.getStatusCode());
+    }
+
+    @ExceptionHandler(CartNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleCartNotFound(CartNotFoundException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(problemDetail, HttpStatus.NOT_FOUND);
     }
 
 }
