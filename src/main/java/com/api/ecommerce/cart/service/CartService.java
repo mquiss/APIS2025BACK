@@ -7,6 +7,7 @@ import com.api.ecommerce.cart.mapper.CartMapper;
 import com.api.ecommerce.cart.model.Cart;
 import com.api.ecommerce.cart.model.CartItem;
 import com.api.ecommerce.cart.repository.CartRepository;
+import com.api.ecommerce.common.exception.CartNotFoundException;
 import com.api.ecommerce.common.util.Mapper;
 import com.api.ecommerce.user.service.UserService;
 import jakarta.validation.Valid;
@@ -38,6 +39,9 @@ public class CartService {
         ObjectId objectUserId = mapper.mapStringToObjectId(userId);
         userService.findUserById(objectUserId); // exception si no hay user
         Cart cart = cartRepository.findByUserId(objectUserId);
+        if (cart == null) {
+            throw new CartNotFoundException("Cart not found for user ID: " + userId);
+        }
         return cartMapper.toCartResponse(cart);
     }
 

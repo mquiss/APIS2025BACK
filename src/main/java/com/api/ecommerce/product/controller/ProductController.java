@@ -5,6 +5,7 @@ import com.api.ecommerce.product.dto.ProductResponse;
 import com.api.ecommerce.common.dto.PageResponse;
 import com.api.ecommerce.product.dto.StockRequest;
 import com.api.ecommerce.product.service.ProductService;
+import com.api.ecommerce.common.exception.ValidationException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
@@ -54,15 +55,23 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
-        ProductResponse productResponse = productService.createProduct(productRequest);
-        URI location = URI.create("/products/"+productResponse.getId());
-        return ResponseEntity.created(location).body(productResponse);
+        try {
+            ProductResponse productResponse = productService.createProduct(productRequest);
+            URI location = URI.create("/products/" + productResponse.getId());
+            return ResponseEntity.created(location).body(productResponse);
+        } catch (Exception ex) {
+            throw new ValidationException("Invalid product data: " + ex.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id, @Valid @RequestBody ProductRequest productRequest) {
-        ProductResponse productResponse = productService.updateProduct(id, productRequest);
-        return ResponseEntity.ok(productResponse);
+        try {
+            ProductResponse productResponse = productService.updateProduct(id, productRequest);
+            return ResponseEntity.ok(productResponse);
+        } catch (Exception ex) {
+            throw new ValidationException("Invalid product update data: " + ex.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -85,7 +94,11 @@ public class ProductController {
 
     @PatchMapping("/update/{id}/stock")
     public ResponseEntity<ProductResponse> updateStock(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id, @Valid @RequestBody StockRequest stockRequest) {
-        ProductResponse product = productService.updateStock(id, stockRequest);
-        return ResponseEntity.ok(product);
+        try {
+            ProductResponse product = productService.updateStock(id, stockRequest);
+            return ResponseEntity.ok(product);
+        } catch (Exception ex) {
+            throw new ValidationException("Invalid stock update data: " + ex.getMessage());
+        }
     }
 }
