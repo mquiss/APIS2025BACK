@@ -4,13 +4,17 @@ import com.api.ecommerce.auth.dto.RegisterRequest;
 import com.api.ecommerce.user.dto.UserResponse;
 import com.api.ecommerce.user.model.Address;
 import com.api.ecommerce.user.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserMapperImpl implements UserMapper {
+    private final PasswordEncoder passwordEncoder;
+
     @Override
-    public User toUser(RegisterRequest registerRequest, PasswordEncoder passwordEncoder) {
+    public User toUser(RegisterRequest registerRequest) {
         return User.builder()
                 .username(registerRequest.getFirstName().charAt(0)+registerRequest.getLastName())
                 .email(registerRequest.getEmail())
@@ -28,7 +32,6 @@ public class UserMapperImpl implements UserMapper {
                 .id(user.getId().toString())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .passwordLength(user.getPassword().length())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .address(user.getAddress())

@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +25,7 @@ import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final Mapper mapper;
 
@@ -91,7 +90,7 @@ public class UserService {
 
     public UserResponse updatePassword(PasswordRequest passwordRequest, String id) {
         User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
-        user.setPassword(passwordRequest.password());
+        user.setPassword(passwordEncoder.encode(passwordRequest.password()));
         userRepository.save(user);
         return userMapper.toUserResponse(user);
     }
@@ -139,8 +138,8 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(RecursoNoEncontradoException::new);
     }
 
-    public UserResponse createUser(RegisterRequest registerRequest, PasswordEncoder passwordEncoder) {
-        User user = userMapper.toUser(registerRequest, passwordEncoder);
+    public UserResponse createUser(RegisterRequest registerRequest) {
+        User user = userMapper.toUser(registerRequest);
         userRepository.save(user);
         return userMapper.toUserResponse(user);
     }

@@ -3,18 +3,18 @@ package com.api.ecommerce.auth.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.api.ecommerce.auth.dto.RegisterRequest;
+import com.api.ecommerce.auth.dto.TokenResponse;
 import com.api.ecommerce.user.dto.UserResponse;
 import com.api.ecommerce.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
 import org.springframework.http.ResponseEntity;
 
 
 import com.api.ecommerce.auth.dto.LoginRequest;
 import com.api.ecommerce.auth.util.JwtUtil;
-import com.api.ecommerce.user.dto.UserDTO;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,33 +25,25 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final UserRepository userRepository;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    public ResponseEntity<?> login(LoginRequest request) {
-        if (request.getUsername() == null || request.getPassword() == null) {
-            return ResponseEntity.badRequest().body("Credenciales incompletas");
-        }
+    public TokenResponse login(LoginRequest request) {
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(RecursoNoEncontradoException::new);
 
-        List<User> usuarios = userRepository.findByUsernameAndPassword(request.getUsername(), request.getPassword());
-
-        if (!usuarios.isEmpty()) {
-            User user = usuarios.get(0);
+        if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             String token = jwtUtil.generateToken(user.getUsername());
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("token", token);
-            response.put("user", user);
-
-            System.out.println("Usuario autenticado: " + user.getUsername());
-            System.out.println("Token generado: " + token);
-
-            return ResponseEntity.ok(response);
+            return new TokenResponse(token, "refresh token, falta implementar");
         } else {
-            return ResponseEntity.status(401).body("Credenciales inválidas");
+            throw new RuntimeException("credenciales incorrectas");
         }
     }
 
-    public UserResponse createUser(RegisterRequest registerRequest) { // debe retornar un usuario?
-        return userService.createUser(registerRequest, jwtUtil.getPasswordEncoder());
+    public UserResponse createUser(RegisterRequest registerRequest) {
+        return userService.createUser(registerRequest);
+    }
+
+    public void refreshToken(String authHeader) {
     }
 }
