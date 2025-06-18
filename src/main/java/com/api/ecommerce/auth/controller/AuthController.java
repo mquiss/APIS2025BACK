@@ -4,17 +4,12 @@ import com.api.ecommerce.auth.dto.LoginRequest;
 import com.api.ecommerce.auth.dto.RegisterRequest;
 import com.api.ecommerce.auth.dto.TokenResponse;
 import com.api.ecommerce.user.dto.UserResponse;
-import com.api.ecommerce.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.api.ecommerce.auth.service.AuthService;
-import com.api.ecommerce.user.dto.UserDTO;
-
-import java.util.Map;
-
 
 @RestController
 @RequiredArgsConstructor

@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
 @Configuration
 @EnableMongoAuditing
-public class MongoDBConfig {
+public class MongoConfig {
     // elimina atributo _class de los nuevos documentos
     @Bean
     public MappingMongoConverter mappingMongoConverter(MongoDatabaseFactory factory, MongoMappingContext context) {

@@ -20,7 +20,7 @@ public class User {
 
     @Indexed(unique = true)
     private String email;
-    private String username;
+    private String username; // FIXME: por alguna razon no acepta usernames duplicados en db
     private String password;
     private String firstName;
     private String lastName;
