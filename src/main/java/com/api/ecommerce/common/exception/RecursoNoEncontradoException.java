@@ -11,6 +11,11 @@ public class RecursoNoEncontradoException extends RuntimeException implements Er
         this.body = ProblemDetail.forStatusAndDetail(getStatusCode(), "Recurso no encontrado");
     }
 
+    public RecursoNoEncontradoException(String message) {
+        super(message);
+        this.body = ProblemDetail.forStatusAndDetail(getStatusCode(), message);
+    }
+
     @Override
     public HttpStatusCode getStatusCode() {
         return HttpStatusCode.valueOf(404);

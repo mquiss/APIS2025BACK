@@ -59,7 +59,7 @@ public class UserController {
     public ResponseEntity<UserResponse> updateEmail(@Valid @RequestBody EmailRequest emailRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
         return ResponseEntity.ok(userService.updateEmail(emailRequest, id));
     }
-    // TODO: crear metodo para encriptar contraseñas y usar en updatePassword del service
+
     @PatchMapping("/{id}/password")
     public ResponseEntity<UserResponse> updatePassword(
             @Valid @RequestBody PasswordRequest passwordRequest,
@@ -67,11 +67,15 @@ public class UserController {
             @PathVariable String id) {
 
         if (passwordRequest.getNewPassword() == null || passwordRequest.getNewPassword().length() < 6) {
-            return ResponseEntity.badRequest().build(); // o devolver un error más descriptivo
+            return ResponseEntity.badRequest().body(null); // La contraseña debe tener al menos 6 caracteres
         }
 
-        UserResponse updatedUser = userService.updatePassword(passwordRequest, id);
-        return ResponseEntity.ok(updatedUser);
+        try {
+            UserResponse updatedUser = userService.updatePassword(passwordRequest, id);
+            return ResponseEntity.ok(updatedUser);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("/{id}")

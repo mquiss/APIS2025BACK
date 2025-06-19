@@ -27,10 +27,14 @@ public class UserService {
     private final UserMapper userMapper;
     private final Mapper mapper;
 
-    // FIXME: posible exception si userRepository no cuenta con usuarios e intenta hacer stream
     public List<UserResponse> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
+        List<User> users = userRepository.findAll();
+
+        if (users == null || users.isEmpty()) {
+            return List.of();
+        }
+
+        return users.stream()
                 .map(userMapper::toUserResponse)
                 .toList();
     }
@@ -88,16 +92,25 @@ public class UserService {
 
 
     public UserResponse updatePassword(PasswordRequest request, String id) {
-        User user = userRepository.findById(null == id || id.isEmpty() ? null : new ObjectId(id))
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        System.out.println("ID del usuario: " + id);
-        System.out.println(userMapper.toUserResponse(user));
-        String hashedPassword = passwordEncoder.encode(request.getNewPassword());
-        user.setPassword(hashedPassword);
-        User saved = userRepository.save(user);
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("El ID del usuario no puede ser nulo o vacío");
+        }
 
-        UserResponse userResponse = userMapper.toUserResponse(saved);
-        return userResponse; // si usás un mapper
+        try {
+            User user = userRepository.findById(new ObjectId(id))
+                    .orElseThrow(() -> new RecursoNoEncontradoException());
+            String hashedPassword = passwordEncoder.encode(request.getNewPassword());
+            user.setPassword(hashedPassword);
+
+            User saved = userRepository.save(user);
+            return userMapper.toUserResponse(saved);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("ID de usuario inválido: " + e.getMessage());
+        } catch (RecursoNoEncontradoException e) {
+            throw new RecursoNoEncontradoException();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar la contraseña: " + e.getMessage());
+        }
     }
 
     public Optional<User> updateUser(String id, User userDetails) {
