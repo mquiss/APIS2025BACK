@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
+import com.api.ecommerce.common.exception.ErrorCreacionException;
 import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
 
 @Service
@@ -87,7 +87,6 @@ public class UserService {
     }
 
 
-
     public UserResponse updatePassword(PasswordRequest request, String id) {
         User user = userRepository.findById(null == id || id.isEmpty() ? null : new ObjectId(id))
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -124,7 +123,7 @@ public class UserService {
         User updatedUser = userRepository.save(user);
 
         return Optional.of(updatedUser);
-       
+
     }
 
     public void deleteUser(String id) {
@@ -145,8 +144,14 @@ public class UserService {
     }
 
     public UserResponse createUser(RegisterRequest registerRequest) {
+        userRepository.findByEmail(registerRequest.getEmail())
+                .ifPresent(u -> {
+                    throw new ErrorCreacionException("El email ya se encuentra registrado");
+                });
+
         User user = userMapper.toUser(registerRequest);
         userRepository.save(user);
+
         return userMapper.toUserResponse(user);
     }
 }
