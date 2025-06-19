@@ -26,8 +26,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CartNotFoundException.class)
     public ResponseEntity<ProblemDetail> handleCartNotFound(CartNotFoundException ex) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-        return new ResponseEntity<>(problemDetail, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(ex.getBody(), ex.getStatusCode());
     }
 
     @ExceptionHandler(ValidationException.class)

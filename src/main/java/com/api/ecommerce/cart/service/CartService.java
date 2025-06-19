@@ -38,11 +38,7 @@ public class CartService {
     public CartResponse getCartByUserId(String userId) {
         ObjectId objectUserId = mapper.mapStringToObjectId(userId);
         userService.findUserById(objectUserId); // exception si no hay user
-        Cart cart = cartRepository.findByUserId(objectUserId);
-        if (cart == null) {
-            throw new CartNotFoundException("Cart not found for user ID: " + userId);
-        }
-        return cartMapper.toCartResponse(cart);
+        return cartMapper.toCartResponse(cartRepository.findByUserId(objectUserId).orElseThrow(CartNotFoundException::new));
     }
 
     public List<CartResponse> getAllCarts() {
@@ -65,7 +61,7 @@ public class CartService {
         ObjectId objectUserId = mapper.mapStringToObjectId(userId);
         userService.findUserById(objectUserId);
 
-        Cart cart = cartRepository.findByUserId(objectUserId);
+        Cart cart = cartRepository.findByUserId(objectUserId).orElseThrow(CartNotFoundException::new);
 
         cart.setProducts(products);
         cartRepository.save(cart);
