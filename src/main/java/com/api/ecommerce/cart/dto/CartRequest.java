@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 public class CartRequest {
-    @NotBlank(message = "userId is required")
+    @NotBlank(message = "User id is required")
     private String userId;
     private List<CartItemRequest> products; //puede estar vacio, deberia guardar products = []
 
