@@ -66,6 +66,7 @@ public class ProductService {
     public ProductResponse createProduct(ProductRequest productRequest) {
         userService.findUserById(mapper.mapStringToObjectId(productRequest.getUserId()));
         categoryService.findCategoryById(mapper.mapStringToObjectId(productRequest.getCategoryId()));
+        // TODO: agregar control y exception para subcategorias acá o en mapper
 
         Product product = productMapper
                 .toProduct(productRequest);
@@ -80,6 +81,8 @@ public class ProductService {
         Product product = productRepository
                 .findById(mapper.mapStringToObjectId(id))
                 .orElseThrow(RecursoNoEncontradoException::new);
+
+        // TODO: agregar control y exception para subcategorias acá o en mapper
 
         Product newProduct = productMapper
                 .toProduct(productRequest);
