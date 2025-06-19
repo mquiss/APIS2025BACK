@@ -59,4 +59,30 @@ public class JwtUtil {
     private boolean isTokenExpired(Claims claims) {
         return claims.getExpiration().before(new Date());
     }
+    public String refreshToken(String token) {
+    try {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        String username = claims.getSubject();
+
+        return generateToken(username); // genera uno nuevo con la misma identidad
+    } catch (JwtException e) {
+        throw new RuntimeException("Token inválido o expirado");
+    }
+}
+
+    public String generateRefreshToken(String username) {
+        long refreshExpiration = expirationTime * 24; // por ejemplo, 24 horas
+
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))
+                .signWith(key)
+                .compact();
+    }
 }

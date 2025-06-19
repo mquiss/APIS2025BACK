@@ -7,11 +7,9 @@ import com.api.ecommerce.user.mapper.UserMapper;
 import com.api.ecommerce.user.model.Address;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.repository.UserRepository;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Size;
+
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -88,11 +86,19 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    public UserResponse updatePassword(PasswordRequest passwordRequest, String id) {
-        User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
-        user.setPassword(passwordEncoder.encode(passwordRequest.password()));
-        userRepository.save(user);
-        return userMapper.toUserResponse(user);
+
+
+    public UserResponse updatePassword(PasswordRequest request, String id) {
+        User user = userRepository.findById(null == id || id.isEmpty() ? null : new ObjectId(id))
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        System.out.println("ID del usuario: " + id);
+        System.out.println(userMapper.toUserResponse(user));
+        String hashedPassword = passwordEncoder.encode(request.getNewPassword());
+        user.setPassword(hashedPassword);
+        User saved = userRepository.save(user);
+
+        UserResponse userResponse = userMapper.toUserResponse(saved);
+        return userResponse; // si usás un mapper
     }
 
     public Optional<User> updateUser(String id, User userDetails) {

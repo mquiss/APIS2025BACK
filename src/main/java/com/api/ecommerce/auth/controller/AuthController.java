@@ -26,9 +26,10 @@ public class AuthController {
     public ResponseEntity<UserResponse> register(@RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.ok(authService.createUser(registerRequest));
     }
-    // TODO:terminar esto
-    @PostMapping("/refresh")
-    public void refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
 
-    }
+@PostMapping("/refresh")
+public ResponseEntity<TokenResponse> refresh(@RequestBody TokenResponse request) {
+    TokenResponse response = authService.refreshToken(request.refreshToken());
+    return ResponseEntity.ok(response);
+}
 }

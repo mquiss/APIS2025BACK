@@ -61,8 +61,17 @@ public class UserController {
     }
     // TODO: crear metodo para encriptar contraseñas y usar en updatePassword del service
     @PatchMapping("/{id}/password")
-    public ResponseEntity<UserResponse> updatePassword(@Valid @RequestBody PasswordRequest passwordRequest, @Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
-        return ResponseEntity.ok(userService.updatePassword(passwordRequest, id));
+    public ResponseEntity<UserResponse> updatePassword(
+            @Valid @RequestBody PasswordRequest passwordRequest,
+            @Size(min = 24, max = 24, message = "id must be 24 characters long")
+            @PathVariable String id) {
+
+        if (passwordRequest.getNewPassword() == null || passwordRequest.getNewPassword().length() < 6) {
+            return ResponseEntity.badRequest().build(); // o devolver un error más descriptivo
+        }
+
+        UserResponse updatedUser = userService.updatePassword(passwordRequest, id);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @PutMapping("/{id}")
