@@ -27,10 +27,14 @@ public class UserService {
     private final UserMapper userMapper;
     private final Mapper mapper;
 
-    // FIXME: posible exception si userRepository no cuenta con usuarios e intenta hacer stream
     public List<UserResponse> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
+        List<User> users = userRepository.findAll();
+
+        if (users == null || users.isEmpty()) {
+            return List.of();
+        }
+
+        return users.stream()
                 .map(userMapper::toUserResponse)
                 .toList();
     }
