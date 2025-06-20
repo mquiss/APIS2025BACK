@@ -63,21 +63,19 @@ public class UserController {
     @PatchMapping("/{id}/password")
     public ResponseEntity<UserResponse> updatePassword(
             @Valid @RequestBody PasswordRequest passwordRequest,
-            @Size(min = 24, max = 24, message = "id must be 24 characters long")
+            @Size(min = 24, max = 24, message = "Id must be 24 characters long")
             @PathVariable String id) {
 
-        if (passwordRequest.getNewPassword() == null || passwordRequest.getNewPassword().length() < 6) {
-            return ResponseEntity.badRequest().body(null); // La contraseña debe tener al menos 6 caracteres
-        }
+        // hacer validaciones de tamaño especifico para password en dto PasswordRequest con anotacion jakarta
 
         try {
-            UserResponse updatedUser = userService.updatePassword(passwordRequest, id);
-            return ResponseEntity.ok(updatedUser);
+            return ResponseEntity.ok(userService.updatePassword(passwordRequest, id));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
+    // no se usa en front
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody User userDetails) {
        try{
@@ -92,6 +90,7 @@ public class UserController {
        
     }
 
+    // no se usa en front, sirve para hacer limpieza
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);

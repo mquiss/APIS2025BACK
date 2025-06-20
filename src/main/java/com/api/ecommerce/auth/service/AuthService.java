@@ -1,17 +1,12 @@
 package com.api.ecommerce.auth.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.api.ecommerce.auth.dto.RegisterRequest;
 import com.api.ecommerce.auth.dto.TokenResponse;
+import com.api.ecommerce.common.exception.ErrorCreacionException;
 import com.api.ecommerce.user.dto.UserResponse;
 import com.api.ecommerce.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
-import org.springframework.http.ResponseEntity;
-
 
 import com.api.ecommerce.auth.dto.LoginRequest;
 import com.api.ecommerce.auth.util.JwtUtil;
@@ -29,11 +24,6 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     public TokenResponse login(LoginRequest request) {
-        // Validar que el request no sea nulo
-        if (request == null || request.getEmail() == null || request.getPassword() == null) {
-            throw new IllegalArgumentException("Credenciales incompletas");
-        }
-
         try {
             User user = userRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new RecursoNoEncontradoException("Usuario con email " + request.getEmail() + " no encontrado"));
@@ -45,9 +35,7 @@ public class AuthService {
             String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
 
             return new TokenResponse(accessToken, refreshToken);
-        } catch (RecursoNoEncontradoException e) {
-            throw e;
-        } catch (SecurityException e) {
+        } catch (RecursoNoEncontradoException | SecurityException e) {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("Error en el proceso de login: " + e.getMessage());
@@ -55,35 +43,15 @@ public class AuthService {
     }
 
     public UserResponse createUser(RegisterRequest registerRequest) {
-        // Validar que el request no sea nulo
-        if (registerRequest == null) {
-            throw new IllegalArgumentException("La solicitud de registro no puede ser nula");
-        }
-
-        // Validar campos obligatorios
-        if (registerRequest.getEmail() == null || registerRequest.getEmail().isEmpty()) {
-            throw new IllegalArgumentException("El email es obligatorio");
-        }
-
-        if (registerRequest.getPassword() == null || registerRequest.getPassword().length() < 6) {
-            throw new IllegalArgumentException("La contraseña debe tener al menos 6 caracteres");
-        }
-
-        // Verificar si el usuario ya existe
-        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("El email ya está registrado");
-        }
-
         try {
             return userService.createUser(registerRequest);
         } catch (Exception e) {
-            throw new RuntimeException("Error al crear el usuario: " + e.getMessage());
+            throw new ErrorCreacionException("Error al crear el usuario: " + e.getMessage());
         }
     }
 
     public TokenResponse refreshToken(String refreshToken) {
-        // Validar que el token no sea nulo o vacío
-        if (refreshToken == null || refreshToken.isEmpty()) {
+        if (refreshToken == null || refreshToken.isEmpty()) { // TODO: se valida en controller con jakarta, cuando este el dto para este request
             throw new IllegalArgumentException("El token de refresco no puede ser nulo o vacío");
         }
 

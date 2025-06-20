@@ -30,7 +30,7 @@ public class UserService {
     public List<UserResponse> getAllUsers() {
         List<User> users = userRepository.findAll();
 
-        if (users == null || users.isEmpty()) {
+        if (users.isEmpty()) {
             return List.of();
         }
 
@@ -97,12 +97,14 @@ public class UserService {
         }
 
         try {
-            User user = userRepository.findById(new ObjectId(id))
-                    .orElseThrow(() -> new RecursoNoEncontradoException());
+            User user = userRepository.findById(mapper.mapStringToObjectId(id))
+                    .orElseThrow(RecursoNoEncontradoException::new);
+
             String hashedPassword = passwordEncoder.encode(request.getNewPassword());
             user.setPassword(hashedPassword);
 
             User saved = userRepository.save(user);
+
             return userMapper.toUserResponse(saved);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("ID de usuario inválido: " + e.getMessage());
@@ -118,7 +120,7 @@ public class UserService {
             throw new IllegalArgumentException("El ID del usuario no puede ser nulo o vacío");
         }
 
-        Optional<User> userOptional = userRepository.findById(new ObjectId(id));
+        Optional<User> userOptional = userRepository.findById(mapper.mapStringToObjectId(id));
 
         if (userOptional.isEmpty()) {
             throw new RecursoNoEncontradoException();
@@ -144,12 +146,12 @@ public class UserService {
             throw new IllegalArgumentException("El ID del usuario no puede ser nulo o vacío");
         }
 
-        Optional<User> userOptional = userRepository.findById(new ObjectId(id));
+        Optional<User> userOptional = userRepository.findById(mapper.mapStringToObjectId(id));
 
         if (userOptional.isEmpty()) {
             throw new RecursoNoEncontradoException();
         }
-        userRepository.deleteById(new ObjectId(id));
+        userRepository.deleteById(mapper.mapStringToObjectId(id));
     }
 
     public User findUserById(ObjectId id) {

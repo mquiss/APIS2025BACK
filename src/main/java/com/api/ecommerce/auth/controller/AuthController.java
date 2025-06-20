@@ -28,9 +28,9 @@ public class AuthController {
         return ResponseEntity.ok(authService.createUser(registerRequest));
     }
 
-@PostMapping("/refresh")
-public ResponseEntity<TokenResponse> refresh(@RequestBody TokenResponse request) {
-    TokenResponse response = authService.refreshToken(request.refreshToken());
-    return ResponseEntity.ok(response);
-}
+    @PostMapping("/refresh")
+    public ResponseEntity<TokenResponse> refresh(@RequestBody TokenResponse request) { // TODO: crear un dto TokenRequest o RefreshTokenRequest si solo necesito el refresh token. Validar en el dto con jakarta. No usar response para request body
+        TokenResponse response = authService.refreshToken(request.refreshToken());
+        return ResponseEntity.ok(response);
+    }
 }

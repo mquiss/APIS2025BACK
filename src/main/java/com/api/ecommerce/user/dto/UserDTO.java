@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
 import java.time.Instant;
 
 @Data
-public class UserDTO {
+public class UserDTO { // TODO: borrar para la entrega definitiva
     private ObjectId id;
     private String username;
     private String email;
