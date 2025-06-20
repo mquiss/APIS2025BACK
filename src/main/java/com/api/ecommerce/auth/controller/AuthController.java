@@ -6,7 +6,6 @@ import com.api.ecommerce.auth.dto.TokenResponse;
 import com.api.ecommerce.user.dto.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

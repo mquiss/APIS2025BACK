@@ -10,14 +10,11 @@ import com.api.ecommerce.cart.repository.CartRepository;
 import com.api.ecommerce.common.exception.CartNotFoundException;
 import com.api.ecommerce.common.util.Mapper;
 import com.api.ecommerce.user.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import org.bson.types.ObjectId;
 
 @Service
