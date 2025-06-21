@@ -1,8 +1,8 @@
 package com.api.ecommerce.cart.controller;
 
+import com.api.ecommerce.cart.dto.CartItemRequest;
 import com.api.ecommerce.cart.dto.CartRequest;
 import com.api.ecommerce.cart.dto.CartResponse;
-import com.api.ecommerce.cart.dto.ProductsRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +32,12 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<CartResponse> createCart(@Valid @RequestBody CartRequest cartRequest) { // esta cosa se ejecuta despues de register
+    public ResponseEntity<CartResponse> createCart(@Valid @RequestBody CartRequest cartRequest) {
         return ResponseEntity.ok(cartService.createCart(cartRequest));
     }
 
     @PatchMapping("/{userId}/products")
-    public ResponseEntity<CartResponse> updateProducts(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId, @Valid @RequestBody ProductsRequest productsRequest) {
+    public ResponseEntity<CartResponse> updateProducts(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId, @Valid @RequestBody List<CartItemRequest> productsRequest) {
         return ResponseEntity.ok(cartService.updateProducts(userId, productsRequest));
     }
 }

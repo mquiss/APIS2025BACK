@@ -9,8 +9,8 @@ public class CartItemResponse {
     private String productId;
     private String title;
     private String image;
-    private int discountPercentage;
-    private double price;
-    private int quantity;
-    private int stock;
+    private Integer discountPercentage;
+    private Double price;
+    private Integer quantity;
+    private Integer stock;
 }

@@ -8,5 +8,5 @@ import org.bson.types.ObjectId;
 @Builder
 public class CartItem {
     private ObjectId productId;
-    private int quantity;
+    private Integer quantity;
 }
