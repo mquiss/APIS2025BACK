@@ -1,10 +1,7 @@
 package com.api.ecommerce.product.dto;
 
 import com.api.ecommerce.product.model.Image;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,11 +22,14 @@ public class ProductRequest {
     private List<Image> images;
     @NotBlank(message = "Description is required")
     private String description;
+    @NotNull(message = "Price is required")
     @Min(value = 0, message = "Price must be non-negative")
-    private int price; // TODO: cambiar todo de int a Integer para validar null
+    private Double price;
+    @NotNull(message = "Stock is required")
     @Min(value = 0, message = "Stock must be non-negative")
-    private int stock; // TODO: cambiar todo de int a Integer para validar null
+    private Integer stock;
+    @NotNull(message = "Discount percentage is required")
     @Min(value = 0, message = "Discount percentage must be non-negative")
     @Max(value = 100, message = "Discount percentage must be 100 or less")
-    private int discountPercentage; // TODO: cambiar todo de int a Integer para validar null
+    private Integer discountPercentage;
 }
