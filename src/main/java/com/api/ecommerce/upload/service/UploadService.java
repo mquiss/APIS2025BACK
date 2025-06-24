@@ -14,10 +14,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UploadService {
-    @Value("${IMG_API_KEY}")
+public class UploadService { // definir variables de entorno o hardcodear
+    @Value("${IMG_API_KEY}") // conseguir api key en https://es.imgbb.com/
     private String API_KEY;
-    @Value("${IMG_EXPIRATION}")
+    @Value("${IMG_EXPIRATION}") // 600
     private int EXPIRATION;
 
     public List<String> uploadImages(List<MultipartFile> files) {
