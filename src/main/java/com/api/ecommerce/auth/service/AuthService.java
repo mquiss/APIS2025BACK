@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.api.ecommerce.auth.dto.LoginRequest;
 import com.api.ecommerce.auth.util.JwtUtil;
+import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,7 @@ public class AuthService {
     }
 
     String accessToken = jwtUtil.generateToken(user.getUsername());
-    String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
+    String refreshToken = jwtUtil.generateToken(user.getUsername());
     String userId = user.getId().toString();
     String username = user.getUsername();
     String email = user.getEmail();
@@ -60,7 +61,7 @@ public class AuthService {
             }
 
         String newaAccessToken = jwtUtil.generateToken(user.getUsername());
-        String newRefreshToken = jwtUtil.generateRefreshToken(user.getUsername());
+        String newRefreshToken = jwtUtil.generateToken(user.getUsername());
         String userId = user.getId().toString();
         String username = user.getUsername();
         String email = user.getEmail();
