@@ -9,8 +9,8 @@ spring:
 
   security:
     user:
-      name: ${SC_USERNAME}
-      password: ${SC_PASSWORD}
+      name: 'dev'
+      password: 'mmMannLPfWhj49Mx'
 
   springdoc:
     swagger-ui:

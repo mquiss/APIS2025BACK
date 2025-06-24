@@ -12,6 +12,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Validated
 @RestController
@@ -24,7 +27,7 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> getUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
         return ResponseEntity.ok(userService.getUserById(id));

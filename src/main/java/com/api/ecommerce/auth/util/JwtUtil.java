@@ -8,6 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.api.ecommerce.user.model.User;
+import com.api.ecommerce.user.repository.UserRepository;
+
 import java.security.Key;
 import java.util.Date;
 
@@ -32,7 +35,16 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
+    
+    public User getUserFromToken(String token,UserRepository userRepository) {
+        String username= Jwts.parserBuilder().setSigningKey(key).build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+    }
     public boolean validateToken(String token, String username) {
         try {
             // Parsear el token y obtener las claims
