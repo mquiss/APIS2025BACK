@@ -1,6 +1,7 @@
 package com.api.ecommerce.auth.controller;
 
 import com.api.ecommerce.auth.dto.LoginRequest;
+import com.api.ecommerce.auth.dto.RefreshRequest;
 import com.api.ecommerce.auth.dto.RegisterRequest;
 import com.api.ecommerce.auth.dto.TokenResponse;
 import com.api.ecommerce.user.dto.UserResponse;
@@ -28,8 +29,8 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<TokenResponse> refresh(@RequestBody TokenResponse request) { // TODO: crear un dto TokenRequest o RefreshTokenRequest si solo necesito el refresh token. Validar en el dto con jakarta. No usar response para request body
-        TokenResponse response = authService.refreshToken(request.refreshToken());
+    public ResponseEntity<TokenResponse> refresh(@RequestBody RefreshRequest refreshRequest) {
+        TokenResponse response = authService.refreshToken(refreshRequest);
         return ResponseEntity.ok(response);
     }
 }

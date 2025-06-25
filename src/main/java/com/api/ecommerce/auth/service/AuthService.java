@@ -1,5 +1,6 @@
 package com.api.ecommerce.auth.service;
 
+import com.api.ecommerce.auth.dto.RefreshRequest;
 import com.api.ecommerce.auth.dto.RegisterRequest;
 import com.api.ecommerce.auth.dto.TokenResponse;
 import com.api.ecommerce.common.exception.ErrorCreacionException;
@@ -50,10 +51,8 @@ public class AuthService {
         }
     }
 
-    public TokenResponse refreshToken(String refreshToken) {
-        if (refreshToken == null || refreshToken.isEmpty()) { // TODO: se valida en controller con jakarta, cuando este el dto para este request
-            throw new IllegalArgumentException("El token de refresco no puede ser nulo o vacío");
-        }
+    public TokenResponse refreshToken(RefreshRequest refreshRequest) {
+        String refreshToken = refreshRequest.refreshToken();
 
         try {
             String username = jwtUtil.extractUsername(refreshToken);
