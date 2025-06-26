@@ -1,5 +1,6 @@
 package com.api.ecommerce.product.service;
 
+import com.api.ecommerce.category.model.Subcategory;
 import com.api.ecommerce.category.service.CategoryService;
 import com.api.ecommerce.common.dto.PageResponse;
 import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
@@ -66,7 +67,10 @@ public class ProductService {
     public ProductResponse createProduct(ProductRequest productRequest) {
         userService.findUserById(mapper.mapStringToObjectId(productRequest.getUserId()));
         categoryService.findCategoryById(mapper.mapStringToObjectId(productRequest.getCategoryId()));
-        // TODO: agregar control y exception para subcategorias acá o en mapper
+
+        for (String subcategoryId : productRequest.getSubcategoryIds()) {
+            categoryService.findSubcategoryById(productRequest.getCategoryId(), subcategoryId);
+        }
 
         Product product = productMapper
                 .toProduct(productRequest);
@@ -77,12 +81,10 @@ public class ProductService {
                 .toProductResponse(product);
     }
 
-    public ProductResponse updateProduct(String id, ProductRequest productRequest) {
+    public ProductResponse updateProduct(String id, ProductRequest productRequest) { // TODO: crear otro dto para definir los datos que se pueden actualizar (excluir ids cat, subcat, user)
         Product product = productRepository
                 .findById(mapper.mapStringToObjectId(id))
                 .orElseThrow(RecursoNoEncontradoException::new);
-
-        // TODO: agregar control y exception para subcategorias acá o en mapper
 
         Product newProduct = productMapper
                 .toProduct(productRequest);
