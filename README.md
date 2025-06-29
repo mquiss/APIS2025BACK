@@ -1,4 +1,4 @@
-# Sistema de E-Commerce - Backend Java Spring
+# Sistema de Ecommerce - Backend
 
 Este repositorio corresponde al **backend** del Trabajo Práctico Obligatorio de la materia _Aplicaciones Interactivas_ (Primer Cuatrimestre 2025).
 
