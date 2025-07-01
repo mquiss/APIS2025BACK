@@ -7,6 +7,7 @@ import com.api.ecommerce.user.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,11 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id) {
         return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @GetMapping("/me") // TODO
+    public ResponseEntity<UserResponse> getProfile(Authentication auth) {
+        return ResponseEntity.ok(userService.getCurrentUser(auth));
     }
 
     @PatchMapping("/{id}/username")
