@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 @Builder
 public class CategoryResponse {
+    private String id;
     private String name;
     private List<String> subcategories;
 }
