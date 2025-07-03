@@ -8,6 +8,7 @@
     "password": "123456",
     "firstName": "Juan",
     "lastName": "García",
+    "role": "USER",
     "address": {
       "street": "Calle Ficticia 123",
       "state": "Buenos Aires",
@@ -30,6 +31,7 @@
     "password": "123456",
     "firstName": "María",
     "lastName": "Martínez",
+    "role": "USER",
     "address": {
       "street": "Avenida Libertador 456",
       "state": "Buenos Aires",
@@ -52,6 +54,7 @@
     "password": "123456",
     "firstName": "Luis",
     "lastName": "Méndez",
+    "role": "USER",
     "address": {
       "street": "Calle Las Heras 789",
       "state": "Córdoba",
