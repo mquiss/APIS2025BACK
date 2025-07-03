@@ -48,7 +48,7 @@ public class UserService {
 
     public UserResponse updateUsername(UsernameRequest usernameRequest, String id) {
         User user = userRepository.findById(mapper.mapStringToObjectId(id)).orElseThrow(RecursoNoEncontradoException::new);
-        user.setUsername(usernameRequest.username());
+        user.setAlias(usernameRequest.username());
         userRepository.save(user);
         return userMapper.toUserResponse(user);
     }
@@ -115,32 +115,6 @@ public class UserService {
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar la contraseña: " + e.getMessage());
         }
-    }
-
-    public Optional<User> updateUser(String id, User userDetails) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("El ID del usuario no puede ser nulo o vacío");
-        }
-
-        Optional<User> userOptional = userRepository.findById(mapper.mapStringToObjectId(id));
-
-        if (userOptional.isEmpty()) {
-            throw new RecursoNoEncontradoException();
-        }
-
-        User user = userOptional.get();
-
-        user.setUsername(userDetails.getUsername());
-        user.setEmail(userDetails.getEmail());
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setAvatar(userDetails.getAvatar());
-        user.setAddress(userDetails.getAddress());
-
-        User updatedUser = userRepository.save(user);
-
-        return Optional.of(updatedUser);
-
     }
 
     public void deleteUser(String id) {
