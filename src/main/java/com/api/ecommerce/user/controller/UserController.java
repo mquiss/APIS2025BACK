@@ -81,21 +81,6 @@ public class UserController {
         }
     }
 
-    // no se usa en front
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody User userDetails) {
-       try{
-
-           return userService.updateUser(id, userDetails)!=null
-               ? ResponseEntity.ok(userDetails)
-               : ResponseEntity.status(404).body("Usuario no encontrado");
-
-       }catch (Exception e) {
-           return ResponseEntity.status(500).body("Error: " + e.getMessage());
-       }
-       
-    }
-
     // no se usa en front, sirve para hacer limpieza
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable String id) {
