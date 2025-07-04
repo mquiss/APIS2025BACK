@@ -34,6 +34,7 @@ public class AuthService {
 
     public UserResponse register(RegisterRequest registerRequest) {
         return userService.createUser(registerRequest);
+        // TODO crear carrito de compras vacío o con productos de register request
     }
 }
 

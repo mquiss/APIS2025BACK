@@ -14,4 +14,5 @@ public class RegisterRequest {
     private String email;
     @NotBlank (message = "Password is required")
     private String password;
+    // TODO agregar lista de productos del carrito en local storage
 }
