@@ -134,6 +134,10 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(RecursoNoEncontradoException::new);
     }
 
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(RecursoNoEncontradoException::new);
+    }
+
     public UserResponse createUser(RegisterRequest registerRequest) {
         userRepository.findByEmail(registerRequest.getEmail())
                 .ifPresent(u -> {
