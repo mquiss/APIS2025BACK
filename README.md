@@ -52,6 +52,13 @@ spring:
 - `SC_PASSWORD`: Contraseña correspondiente al usuario definido en SC_USERNAME, utilizada para proteger rutas HTTP
   mediante autenticación básica.
 
+Variables de entorno que `no aparecen en application.yml`:
+
+- `IMG_API_KEY`: Clave de acceso a la API de imgbb. Puede obtenerse en https://es.imgbb.com/.
+- `IMG_EXPIRATION`: Tiempo en segundos que la imagen se mantendrá almacenada (por ejemplo: 600).
+- `JWT_SECRET_KEY`: Clave secreta utilizada para firmar los tokens JWT con el algoritmo HS256. Debe tener una longitud adecuada en bits para garantizar la seguridad.
+- `JWT_EXPIRATION`: Tiempo de validez del token JWT antes de que expire y deje de ser aceptado.
+
 > ⚠️ ***Evita hardcodear valores sensibles en `application.yml`, ya que el archivo se encuentra en el repositorio remoto.***
 
 ### 2.3 Iniciar servidor
