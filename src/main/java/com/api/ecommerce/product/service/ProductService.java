@@ -1,6 +1,5 @@
 package com.api.ecommerce.product.service;
 
-import com.api.ecommerce.category.model.Subcategory;
 import com.api.ecommerce.category.service.CategoryService;
 import com.api.ecommerce.common.dto.PageResponse;
 import com.api.ecommerce.common.exception.RecursoNoEncontradoException;
