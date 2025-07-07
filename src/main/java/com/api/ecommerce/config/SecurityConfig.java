@@ -36,10 +36,8 @@ public class SecurityConfig {
                 .requestMatchers(
                         "/auth/login",
                         "/auth/register",
-                        "/products/category/",
-                        "/products",
-                        "/products/page/",
                         "/categories",
+                        "/products",
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/swagger-ui.html"
@@ -60,7 +58,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:5173")); // origen del frontend
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // si usás cookies o Authorization
 
