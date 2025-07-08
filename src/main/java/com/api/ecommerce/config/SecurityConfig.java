@@ -53,6 +53,7 @@ public class SecurityConfig {
                         // Rutas que requieren autenticación para modificar productos
                         .requestMatchers(HttpMethod.POST, "/products").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/carts/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/products/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/carts/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/products/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/products/**").authenticated()
