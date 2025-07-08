@@ -40,4 +40,9 @@ public class CartController {
     public ResponseEntity<CartResponse> updateProducts(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId, @Valid @RequestBody List<CartItemRequest> productsRequest) {
         return ResponseEntity.ok(cartService.updateProducts(userId, productsRequest));
     }
+
+    @PutMapping("/{userId}/products")
+    public ResponseEntity<CartResponse> replaceProducts(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String userId, @Valid @RequestBody List<CartItemRequest> productsRequest) {
+        return ResponseEntity.ok(cartService.replaceProducts(userId, productsRequest));
+    }
 }

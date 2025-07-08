@@ -52,11 +52,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
                         // Rutas que requieren autenticación para modificar productos
                         .requestMatchers(HttpMethod.POST, "/products").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/carts/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/carts/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/products/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/products/**").authenticated()
                         // Rutas solo para usuarios autenticados
-                        .requestMatchers(HttpMethod.GET,"/orders/**").authenticated()
-                        .requestMatchers("/carts/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/orders/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/carts/**").authenticated()
                         .requestMatchers("/users/**").authenticated()
                         // Cualquier otra ruta requiere autenticación
                         .anyRequest().authenticated())
