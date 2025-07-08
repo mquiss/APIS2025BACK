@@ -55,7 +55,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/products/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/products/**").authenticated()
                         // Rutas solo para usuarios autenticados
-                        .requestMatchers("/orders/**").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/orders/**").authenticated()
                         .requestMatchers("/carts/**").authenticated()
                         .requestMatchers("/users/**").authenticated()
                         // Cualquier otra ruta requiere autenticación
@@ -81,8 +81,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // puerto permitido
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // métodos http permitidos
+        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // puerto permitido
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // métodos http permitidos
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type")); // headers http permitidos
         configuration.setAllowCredentials(true);
 
