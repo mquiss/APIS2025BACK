@@ -36,6 +36,7 @@ public class ProductMapperImpl implements ProductMapper{
 
         return ProductResponse.builder()
                 .id(product.getId().toString())
+                .userId(product.getUserId().toString())
                 .username(username)
                 .category(categoryName)
                 .subcategories(subcategoryNames)
