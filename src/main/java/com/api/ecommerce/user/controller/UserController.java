@@ -73,9 +73,6 @@ public class UserController {
             @Valid @RequestBody PasswordRequest passwordRequest,
             @Size(min = 24, max = 24, message = "Id must be 24 characters long")
             @PathVariable String id) {
-
-        // hacer validaciones de tamaño especifico para password en dto PasswordRequest con anotacion jakarta
-
         try {
             return ResponseEntity.ok(userService.updatePassword(passwordRequest, id));
         } catch (RuntimeException e) {
