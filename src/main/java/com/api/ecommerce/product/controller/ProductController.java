@@ -82,7 +82,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @PatchMapping("/update/{id}/stock")
+    @PatchMapping("/{id}/stock")
     public ResponseEntity<ProductResponse> updateStock(@Size(min = 24, max = 24, message = "id must be 24 characters long") @PathVariable String id, @Valid @RequestBody StockRequest stockRequest) {
         try {
             ProductResponse product = productService.updateStock(id, stockRequest);

@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @Builder
 public class OrderResponse {
+    private String id;
     private String userId;
     private List<OrderItemResponse> products;
     private double subtotal;

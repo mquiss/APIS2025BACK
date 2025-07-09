@@ -26,7 +26,7 @@ public class ProductMapperImpl implements ProductMapper{
 
     @Override
     public ProductResponse toProductResponse(Product product) {
-        String username = userService.findUserById(product.getUserId()).getUsername();
+        String username = userService.findUserById(product.getUserId()).getAlias();
         String categoryName = categoryService.findCategoryById(product.getCategoryId()).getName();
         List<String> subcategoryNames = categoryService.findCategoryById(product.getCategoryId())
                 .getSubcategories()
@@ -36,6 +36,7 @@ public class ProductMapperImpl implements ProductMapper{
 
         return ProductResponse.builder()
                 .id(product.getId().toString())
+                .userId(product.getUserId().toString())
                 .username(username)
                 .category(categoryName)
                 .subcategories(subcategoryNames)

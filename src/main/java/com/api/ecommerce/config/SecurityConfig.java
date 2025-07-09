@@ -52,11 +52,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
                         // Rutas que requieren autenticación para modificar productos
                         .requestMatchers(HttpMethod.POST, "/products").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/carts/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/products/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/carts/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/products/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/products/**").authenticated()
                         // Rutas solo para usuarios autenticados
-                        .requestMatchers("/orders/**").authenticated()
-                        .requestMatchers("/carts/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/orders/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/carts/**").authenticated()
                         .requestMatchers("/users/**").authenticated()
                         // Cualquier otra ruta requiere autenticación
                         .anyRequest().authenticated())
@@ -81,8 +84,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // puerto permitido
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // métodos http permitidos
+        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // puerto permitido
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // métodos http permitidos
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type")); // headers http permitidos
         configuration.setAllowCredentials(true);
 

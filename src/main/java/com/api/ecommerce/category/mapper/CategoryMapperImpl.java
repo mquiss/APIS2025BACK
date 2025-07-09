@@ -1,6 +1,7 @@
 package com.api.ecommerce.category.mapper;
 
 import com.api.ecommerce.category.dto.CategoryResponse;
+import com.api.ecommerce.category.dto.SubcategoryResponse;
 import com.api.ecommerce.category.model.Category;
 import com.api.ecommerce.category.model.Subcategory;
 import com.api.ecommerce.common.util.Mapper;
@@ -13,7 +14,15 @@ public class CategoryMapperImpl implements CategoryMapper {
         return CategoryResponse.builder()
                 .id(category.getId().toString())
                 .name(category.getName())
-                .subcategories(category.getSubcategories().stream().map(Subcategory::getName).toList())
+                .subcategories(category.getSubcategories().stream().map(this::toSubcategoryResponse).toList())
+                .build();
+    }
+
+    @Override
+    public SubcategoryResponse toSubcategoryResponse(Subcategory subcategory) {
+        return SubcategoryResponse.builder()
+                .id(subcategory.getId())
+                .name(subcategory.getName())
                 .build();
     }
 }

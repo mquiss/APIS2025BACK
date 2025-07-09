@@ -6,6 +6,8 @@ import com.api.ecommerce.auth.jwt.JwtService;
 import com.api.ecommerce.auth.model.Token;
 import com.api.ecommerce.auth.model.Type;
 import com.api.ecommerce.auth.repository.TokenRepository;
+import com.api.ecommerce.cart.dto.CartRequest;
+import com.api.ecommerce.cart.service.CartService;
 import com.api.ecommerce.user.dto.UserResponse;
 import com.api.ecommerce.user.model.User;
 import com.api.ecommerce.user.service.UserService;
@@ -24,6 +26,7 @@ import java.util.List;
 public class AuthService {
     private final JwtService jwtService;
     private final UserService userService;
+    private final CartService cartService;
     private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
@@ -45,8 +48,13 @@ public class AuthService {
     }
 
     public UserResponse register(RegisterRequest registerRequest) {
-        return userService.createUser(registerRequest);
-        // TODO crear carrito de compras vacío o con productos de register request
+        UserResponse userResponse = userService.createUser(registerRequest);
+        cartService.createCart(CartRequest.builder()
+                .userId(userResponse.getId())
+                .products(registerRequest.getProducts())
+                .build());
+
+        return userResponse;
     }
 
     public void saveUserToken(User user, String jwtToken) {

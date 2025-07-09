@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +33,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @GetMapping("/me") // TODO
-    public ResponseEntity<UserResponse> getProfile(Authentication auth) {
-        return ResponseEntity.ok(userService.getCurrentUser(auth));
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(userService.getCurrentUser(userDetails));
     }
 
     @PatchMapping("/{id}/username")
@@ -71,9 +73,6 @@ public class UserController {
             @Valid @RequestBody PasswordRequest passwordRequest,
             @Size(min = 24, max = 24, message = "Id must be 24 characters long")
             @PathVariable String id) {
-
-        // hacer validaciones de tamaño especifico para password en dto PasswordRequest con anotacion jakarta
-
         try {
             return ResponseEntity.ok(userService.updatePassword(passwordRequest, id));
         } catch (RuntimeException e) {

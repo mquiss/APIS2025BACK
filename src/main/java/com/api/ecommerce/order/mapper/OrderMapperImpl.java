@@ -24,6 +24,7 @@ public class OrderMapperImpl implements OrderMapper {
     @Override
     public OrderResponse toOrderResponse(Order order) {
         return OrderResponse.builder()
+                .id(order.getId().toString())
                 .userId(order.getUserId().toString())
                 .products(order.getProducts().stream().map(this::toOrderItemResponse).toList())
                 .subtotal(order.getSubtotal())

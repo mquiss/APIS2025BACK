@@ -10,12 +10,16 @@ import com.api.ecommerce.cart.repository.CartRepository;
 import com.api.ecommerce.common.exception.CartNotFoundException;
 import com.api.ecommerce.common.util.Mapper;
 import com.api.ecommerce.user.service.UserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 import org.bson.types.ObjectId;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -88,6 +92,25 @@ public class CartService {
                 .toList();
 
         cart.setProducts(mergedItems);
+        cartRepository.save(cart);
+
+        return cartMapper.toCartResponse(cart);
+    }
+
+    public CartResponse replaceProducts(String userId, List<CartItemRequest> productsRequest) {
+        ObjectId objectUserId = mapper.mapStringToObjectId(userId);
+        userService.findUserById(objectUserId);
+
+        Cart cart = cartRepository.findByUserId(objectUserId)
+                .orElseThrow(CartNotFoundException::new);
+
+        List<CartItem> items = (productsRequest == null || productsRequest.isEmpty())
+                ? Collections.emptyList()
+                : productsRequest.stream()
+                .map(cartMapper::toCartItem)
+                .toList();
+
+        cart.setProducts(items);
         cartRepository.save(cart);
 
         return cartMapper.toCartResponse(cart);

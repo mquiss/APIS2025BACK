@@ -1,7 +1,6 @@
 package com.api.ecommerce.auth.controller;
 
 import com.api.ecommerce.auth.dto.LoginRequest;
-import com.api.ecommerce.auth.dto.RefreshRequest;
 import com.api.ecommerce.auth.dto.RegisterRequest;
 import com.api.ecommerce.auth.dto.TokenResponse;
 import com.api.ecommerce.user.dto.UserResponse;
