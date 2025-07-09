@@ -81,7 +81,4 @@ Este proyecto utiliza una base de datos no relacional, específicamente MongoDB.
 
 ## 5. Acceso al proyecto
 
-- **Login (Spring Security):** [http://localhost:8080/login](http://localhost:8080/login)
-
-> Ingresar los valores de las variables de entorno **SC_USERNAME** y **SC_PASSWORD** en el formulario para poder acceder
-> a todas las rutas del proyecto.
+- **Frontend React:** [Repositorio](https://github.com/jonathanmilo/APIS2025FRONT)
